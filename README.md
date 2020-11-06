@@ -2,6 +2,24 @@
 
 For my perfect alcohol life
 
+## 프로젝트 초기 세팅
+
+초기 개발용 세팅
+```
+$ cd hosting
+$ npm i
+```
+
+Firebase에 Deploy하는 방법
+```
+$ cd hosting
+$ npx firebase login
+$ npm build
+$ npm run deploy
+```
+
+## 아무말
+
 술 데이터베이스를 보여줄 웹 사이트를 만들것
 
 1. 술에 대해 검색하고 그 정보를 볼 수 있어야된다. -> 이름, 도수, 만든곳, 파는곳?, 가격?, 맛, 등등 -> 레퍼런스로 사용해도 될 정도의 정확함
