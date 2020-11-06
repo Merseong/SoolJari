@@ -14,3 +14,5 @@ For my perfect alcohol life
 8. 같이 먹으면 좋은 안주들도? 어디서 먹을수 있는지도 알수있게?
 9. 커스텀 가능한 초기화면
 10. 별자리 - 술자리, 어두운 밤하늘에 술한잔
+
+[노션에 쓰는 문서](https://www.notion.so/merseong/DB-b18d231429274d9c9415259771d74ba5)
