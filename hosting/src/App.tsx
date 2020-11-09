@@ -30,7 +30,7 @@ function App() {
             <Button basic icon='search'/>
           </Menu.Item>
           <Menu.Item position='right'>
-            <Icon fitted size='large' name='user' link/>{{/** 메뉴로 변경예정, 로그인시 초록색으로 되게 */}}
+            <Icon fitted size='large' name='user' link/>
           </Menu.Item>
           <Menu.Item fitted></Menu.Item>
         </Container>
@@ -38,5 +38,7 @@ function App() {
     </div>
   );
 }
+
+// :33 Menu로 변경예정, 로그인시 초록색 or 빨간색으로 되게?
 
 export default App;
