@@ -4,18 +4,38 @@ For my perfect alcohol life
 
 ## 프로젝트 초기 세팅
 
-초기 개발용 세팅
+### 초기 설치
+
+[Git](https://git-scm.com/download/win)
+
+[Node.js](https://nodejs.org/dist/v14.15.0/node-v14.15.0-x64.msi)
+
+[VS Code](https://aka.ms/win32-x64-user-stable)
+
+```
+$ git clone <git address>
+$ git checkout -t origin/development
+```
+
+### 초기 개발용 세팅
+
 ```
 $ cd hosting
 $ npm i
+$ npx firebase login
+$ npx firebase hosting:channel:depoly preview
 ```
 
-Firebase에 Deploy하는 방법
+### Firebase에 Deploy하는 방법
+
 ```
 $ cd hosting
 $ npx firebase login
-$ npm build
 $ npm run deploy
+```
+또는...
+```
+$ npx firebase hosting:clone sooljari-alcdb:preview sooljari-alcdb:live
 ```
 
 ## 아무말

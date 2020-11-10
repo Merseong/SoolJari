@@ -20,10 +20,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "deploy": "npm run build && npx firebase deploy",
+    "preview": "npm run build && npx firebase hosting:channel:deploy preview",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy": "npm run build && npx firebase deploy"
+    "rstest": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
