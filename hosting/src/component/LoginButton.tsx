@@ -3,7 +3,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import {
     Button,
-    Icon 
+    Icon
 } from "semantic-ui-react";
 
 export interface LoginButtonProps {
@@ -72,23 +72,23 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
         const { isLogin, isAdmin } = this.state;
 
         return (
-            isLogin ? 
-                isAdmin ? 
-                    <Button 
+            isLogin ?
+                isAdmin ?
+                    <Button
                         basic
                         color='green'
                         icon={<Icon fitted size='large' name='user'/>}
                         onClick={() => this.logout()}
                     />
                     :
-                    <Button 
+                    <Button
                         basic
                         color='red'
                         icon={<Icon fitted size='large' name='user'/>}
                         onClick={() => this.logout()}
                     />
                 :
-                <Button 
+                <Button
                     basic
                     icon={<Icon fitted size='large' name='user'/>}
                     onClick={() => this.googleLogin()}

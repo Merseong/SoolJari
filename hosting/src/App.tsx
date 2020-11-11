@@ -1,12 +1,12 @@
 import React from 'react';
 import firebase from "firebase/app";
 import 'semantic-ui-css/semantic.min.css';
-import { 
+import {
   Button,
   Container,
-  Header, 
-  Icon, 
-  Input, 
+  Header,
+  Icon,
+  Input,
   Menu,
 } from 'semantic-ui-react';
 import { LoginButton } from './component/LoginButton';
@@ -54,7 +54,5 @@ function App() {
     </div>
   );
 }
-
-// :33 Menu로 변경예정, 로그인시 초록색 or 빨간색으로 되게?
 
 export default App;
