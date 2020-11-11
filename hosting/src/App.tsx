@@ -10,6 +10,7 @@ import {
   Menu,
 } from 'semantic-ui-react';
 import { LoginButton } from './component/LoginButton';
+import { initFirestore } from './firestore/FirestoreActions';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
   }
 
   !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app();
+  initFirestore();
 
   return (
     <div>

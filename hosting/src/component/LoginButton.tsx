@@ -5,6 +5,7 @@ import {
     Button,
     Icon
 } from "semantic-ui-react";
+import { getFirestoreDB } from "../firestore/FirestoreActions"
 
 export interface LoginButtonProps {
 }
@@ -39,6 +40,17 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
                 isAdmin: user?.email === 'esc990720@korea.ac.kr' || user?.email === 'esc990720@gmail.com',
             })
             console.log('Google Login');
+
+            /// Firestore test start
+            const db = getFirestoreDB();
+            db.collection('cards').doc('DR6oLGzTVd0Yg1dfRgqI').get()
+            .then(doc => {
+                console.log(doc.data());
+            })
+            .catch(e => {
+                console.error(e);
+            })
+            /// Firestore test end
         })
         .catch(error => {
             // Handle Errors here.
