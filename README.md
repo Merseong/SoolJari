@@ -2,6 +2,8 @@
 
 For my perfect alcohol life
 
+[![CodeFactor](https://www.codefactor.io/repository/github/merseong/sooljari/badge?s=7aaf9723c4ad27864121ccc4fdbb83dcc5660310)](https://www.codefactor.io/repository/github/merseong/sooljari)
+
 ## 프로젝트 초기 세팅
 
 ### 초기 설치
@@ -23,7 +25,12 @@ $ git checkout -t origin/development
 $ cd hosting
 $ npm i
 $ npx firebase login
-$ npx firebase hosting:channel:depoly preview
+$ npm run preview
+```
+프로젝트가 연결되지 않았을 경우
+```
+$ npx firebase use --add
+-> alias는 default로
 ```
 
 ### Firebase에 Deploy하는 방법
