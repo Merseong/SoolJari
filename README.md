@@ -20,6 +20,8 @@ $ git config user.name "Name"
 $ git config user.email "Email@e.e"
 $ git checkout -t origin/development
 ```
+또는...
+gitAutoset.sh 실행
 
 ### 초기 개발용 세팅
 
