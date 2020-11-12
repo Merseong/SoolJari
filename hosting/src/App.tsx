@@ -31,7 +31,7 @@ function App() {
 
   return (
     <div>
-      <Menu fixed='top' stackable>
+      <Menu stackable>
         <Container fluid>
           <Menu.Item>
             <Header>
@@ -54,7 +54,6 @@ function App() {
           </Menu.Item>
         </Container>
       </Menu>
-      <Menu></Menu>
       <Container fluid>
         <CardGroup/>
       </Container>
