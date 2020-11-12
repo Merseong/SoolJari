@@ -7,7 +7,7 @@ import {
 } from "semantic-ui-react";
 import { getFirestoreDB } from "../firestore/FirestoreActions"
 
-export interface LoginButtonProps {
+interface LoginButtonProps {
 }
 
 interface LoginButtonState {

@@ -16,6 +16,8 @@ For my perfect alcohol life
 
 ```
 $ git clone <git address>
+$ git config user.name "Name"
+$ git config user.email "Email@e.e"
 $ git checkout -t origin/development
 ```
 

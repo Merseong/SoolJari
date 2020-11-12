@@ -11,6 +11,7 @@ import {
 } from 'semantic-ui-react';
 import { LoginButton } from './component/LoginButton';
 import { initFirestore } from './firestore/FirestoreActions';
+import { CardGroup } from './component/CardGroup';
 
 function App() {
 
@@ -31,7 +32,7 @@ function App() {
   return (
     <div>
       <Menu fixed='top' stackable>
-        <Container>
+        <Container fluid>
           <Menu.Item>
             <Header>
               <Icon name='glass martini'/>
@@ -43,6 +44,7 @@ function App() {
               transparent
               style={{
                 minWidth: '320px',
+                color: 'white',
               }}
             />
             <Button basic icon='search'/>
@@ -50,9 +52,12 @@ function App() {
           <Menu.Item position='right'>
             <LoginButton/>
           </Menu.Item>
-          <Menu.Item fitted></Menu.Item>
         </Container>
       </Menu>
+      <Menu></Menu>
+      <Container fluid>
+        <CardGroup/>
+      </Container>
     </div>
   );
 }
