@@ -20,8 +20,8 @@ $ git config user.name "Name"
 $ git config user.email "Email@e.e"
 $ git checkout -t origin/development
 ```
-또는...
-gitAutoset.sh 실행
+또는...  
+ssajiAutoset.sh 실행 (git 세팅, firebase 세팅 자동화)
 
 ### 초기 개발용 세팅
 
