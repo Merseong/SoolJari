@@ -3,8 +3,10 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import {
     Button,
+    Dropdown,
     Icon
 } from "semantic-ui-react";
+import { AddCardModal } from "./AddCardModal";
 
 interface LoginButtonProps {
 }
@@ -74,15 +76,24 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
         return (
             isLogin ?
                 isAdmin ?
-                    <Button
-                        basic
-                        color='green'
-                        icon={<Icon fitted size='large' name='user'/>}
-                        onClick={() => this.logout()}
-                    />
+                    <Dropdown
+                        icon={<Icon name='user' size='large' color='green'/>}
+                        floating
+                        button
+                        className='icon'
+                        pointing='top right'
+                    >
+                        <Dropdown.Menu>
+                            <Dropdown.Item >
+                                <AddCardModal/>
+                            </Dropdown.Item>
+                            <Dropdown.Item >
+                                <Icon name='minus' color='red'/>
+                            </Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
                     :
                     <Button
-                        basic
                         color='red'
                         icon={<Icon fitted size='large' name='user'/>}
                         onClick={() => this.logout()}
