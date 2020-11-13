@@ -2,16 +2,11 @@ import React from 'react';
 import firebase from "firebase/app";
 import 'semantic-ui-css/semantic.min.css';
 import {
-  Button,
   Container,
-  Header,
-  Icon,
-  Input,
-  Menu,
 } from 'semantic-ui-react';
-import { LoginButton } from './component/LoginButton';
 import { initFirestore } from './firestore/FirestoreActions';
 import { CardGroup } from './component/CardGroup';
+import { TopMenubar } from './component/TopMenubar';
 
 function App() {
 
@@ -31,29 +26,7 @@ function App() {
 
   return (
     <div>
-      <Menu stackable>
-        <Container fluid>
-          <Menu.Item>
-            <Header>
-              <Icon name='glass martini'/>
-              <Header.Content>술자리</Header.Content>
-            </Header>
-          </Menu.Item>
-          <Menu.Item>
-            <Input
-              transparent
-              style={{
-                minWidth: '320px',
-                color: 'white',
-              }}
-            />
-            <Button basic icon='search'/>
-          </Menu.Item>
-          <Menu.Item position='right'>
-            <LoginButton/>
-          </Menu.Item>
-        </Container>
-      </Menu>
+      <TopMenubar/>
       <Container fluid>
         <CardGroup/>
       </Container>
