@@ -2,20 +2,51 @@
 
 For my perfect alcohol life
 
+[![CodeFactor](https://www.codefactor.io/repository/github/merseong/sooljari/badge?s=7aaf9723c4ad27864121ccc4fdbb83dcc5660310)](https://www.codefactor.io/repository/github/merseong/sooljari)
+
 ## 프로젝트 초기 세팅
 
-초기 개발용 세팅
+### 초기 설치
+
+[Git](https://git-scm.com/download/win)
+
+[Node.js](https://nodejs.org/dist/v14.15.0/node-v14.15.0-x64.msi)
+
+[VS Code](https://aka.ms/win32-x64-user-stable)
+
+```
+$ git clone <git address>
+$ git config user.name "Name"
+$ git config user.email "Email@e.e"
+$ git checkout -t origin/development
+```
+또는...  
+ssajiAutoset.sh 실행 (git 세팅, firebase 세팅 자동화)
+
+### 초기 개발용 세팅
+
 ```
 $ cd hosting
 $ npm i
+$ npx firebase login
+$ npm run preview
+```
+프로젝트가 연결되지 않았을 경우
+```
+$ npx firebase use --add
+-> alias는 default로
 ```
 
-Firebase에 Deploy하는 방법
+### Firebase에 Deploy하는 방법
+
 ```
 $ cd hosting
 $ npx firebase login
-$ npm build
 $ npm run deploy
+```
+또는...
+```
+$ npx firebase hosting:clone sooljari-alcdb:preview sooljari-alcdb:live
 ```
 
 ## 아무말

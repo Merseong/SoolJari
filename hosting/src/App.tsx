@@ -1,23 +1,35 @@
 import React from 'react';
-import reactLogo from './React_logo.svg';
-import firebaseLogo from './Firebase_Logo_Logomark.svg'
-import './App.css';
+import firebase from "firebase/app";
+import 'semantic-ui-css/semantic.min.css';
+import {
+  Container,
+} from 'semantic-ui-react';
+import { initFirestore } from './firestore/FirestoreActions';
+import { CardGroup } from './component/CardGroup';
+import { TopMenubar } from './component/TopMenubar';
 
 function App() {
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCgOpj7xM54wHvP3F2NMsQLEj2626BnHlE",
+    authDomain: "sooljari-alcdb.firebaseapp.com",
+    databaseURL: "https://sooljari-alcdb.firebaseio.com",
+    projectId: "sooljari-alcdb",
+    storageBucket: "sooljari-alcdb.appspot.com",
+    messagingSenderId: "536442650410",
+    appId: "1:536442650410:web:52d3f028102e6e60b96853",
+    measurementId: "G-KBRDDM5RSN"
+  }
+
+  !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app();
+  initFirestore();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          <img src={firebaseLogo} className="App-logo" alt="logo" />
-          <img src={reactLogo} className="App-logo" alt="logo" />
-        </p>
-        <p>
-          Firebase with React-Typescript!
-        </p>
-        <p>
-          by SoolJari
-        </p>
-      </header>
+    <div>
+      <TopMenubar/>
+      <Container fluid>
+        <CardGroup/>
+      </Container>
     </div>
   );
 }
