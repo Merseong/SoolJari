@@ -18,7 +18,7 @@ export enum CardType {
 export class Card {
     type: CardType;
     title: string; // 카드의 제목
-    altTags: Array<Tag>; // 이명 태그 목록
+    altTags: Array<string>; // 이명 태그 목록
     otherTags: Array<Tag>; // 기타 태그 목록
     classifies: Array<RouteTag>; // 분류 목록
 

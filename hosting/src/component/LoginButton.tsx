@@ -99,11 +99,14 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
                         onClick={() => this.logout()}
                     />
                 :
-                <Button
-                    basic
-                    icon={<Icon fitted size='large' name='user'/>}
-                    onClick={() => this.googleLogin()}
-                />
+                <>
+                    <Button
+                        basic
+                        icon={<Icon fitted size='large' name='user'/>}
+                        onClick={() => this.googleLogin()}
+                    />
+                    <AddCardModal/>
+                </>
         )
     }
 }

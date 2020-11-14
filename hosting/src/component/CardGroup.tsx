@@ -29,6 +29,7 @@ export class CardGroup extends React.Component<CardGroupProps, CardGroupState> {
                 this.setState((state, _) => {
                     return {
                         cardItems: state.cardItems.concat(<BasicCard
+                            key={docData.title}
                             title={docData.title}
                             altTags={docData.altTags}
                             otherTags={docData.otherTags}
@@ -49,7 +50,7 @@ export class CardGroup extends React.Component<CardGroupProps, CardGroupState> {
 
     render() {
         return (
-            <Card.Group centered>
+            <Card.Group centered key='cardGroup'>
                 {this.state.cardItems}
             </Card.Group>
         )
