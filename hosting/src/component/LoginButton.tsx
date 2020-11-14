@@ -78,19 +78,16 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
             isLogin ?
                 isAdmin ?
                     <Dropdown
-                        icon={<Icon name='user' size='large' color='green'/>}
+                        icon={<Icon name='user' size='large' fitted color='green'/>}
                         floating
                         button
                         className='icon'
                         pointing='top right'
+
                     >
-                        <Dropdown.Menu>
-                            <Dropdown.Item>
-                                <AddCardModal/>
-                            </Dropdown.Item>
-                            <Dropdown.Item>
-                                <RemoveCardModal/>
-                            </Dropdown.Item>
+                        <Dropdown.Menu fitted>
+                            <Dropdown.Item content={<AddCardModal/>}/>
+                            <Dropdown.Item content={<RemoveCardModal/>}/>
                         </Dropdown.Menu>
                     </Dropdown>
                     :

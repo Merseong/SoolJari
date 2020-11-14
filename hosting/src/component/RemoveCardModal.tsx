@@ -47,7 +47,7 @@ export class RemoveCardModal extends React.Component<RemoveCardModalProps,Remove
                 onClose={() => setOpen(false)}
                 onOpen={() => setOpen(true)}
                 open={open}
-                trigger={<Icon name='minus' color='red' link/>}
+                trigger={<Icon circular fitted name='minus' color='red' link/>}
                 closeOnDimmerClick={false}
             >
                 <Modal.Header>카드 삭제</Modal.Header>

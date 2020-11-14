@@ -79,7 +79,7 @@ export class AddCardModal extends React.Component<AddCardModalProps, AddCardModa
                 onClose={() => setOpen(false)}
                 onOpen={() => setOpen(true)}
                 open={open}
-                trigger={<Icon name='plus' color='green' link/>}
+                trigger={<Icon circular fitted name='plus' color='green' link/>}
                 closeOnDimmerClick={false}
             >
                 <Modal.Header>카드 추가</Modal.Header>
