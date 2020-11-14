@@ -6,6 +6,8 @@ import {
     Button,
     Dropdown
 } from "semantic-ui-react";
+import { Card } from "../firestore/Card";
+import { addCard } from "../firestore/FirestoreActions";
 
 interface AddCardModalProps {
 }
@@ -56,7 +58,7 @@ export class AddCardModal extends React.Component<AddCardModalProps, AddCardModa
         })
     }
 
-    handleChange = (_:any, { name, value }:any) => this.setState({ [name]: value });
+    handleChange = (e:any, { name, value }:any) => this.setState({ [name]: value });
 
     handleEnterDown(e:KeyboardEvent) {
         if (e.code === 'Enter') {
@@ -65,7 +67,7 @@ export class AddCardModal extends React.Component<AddCardModalProps, AddCardModa
     }
 
     formSubmit() {
-        console.log(this.state);
+        addCard(new Card(this.state.title));
         this.setOpen(false);
     }
 
@@ -79,6 +81,7 @@ export class AddCardModal extends React.Component<AddCardModalProps, AddCardModa
                 onOpen={() => setOpen(true)}
                 open={open}
                 trigger={<Icon name='plus' color='green' link/>}
+                closeOnDimmerClick={false}
             >
                 <Modal.Header>카드 추가</Modal.Header>
                 <Modal.Content>

@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
+import { Card } from "./Card";
 
 let db :firebase.firestore.Firestore;
 
@@ -16,6 +17,8 @@ export function getFirestoreDB() {
     return db;
 }
 
-export function addCard() {
-
+export function addCard(newCard: Card) {
+    return db.collection('cards').doc().set({
+        title: newCard.title,
+    })
 }

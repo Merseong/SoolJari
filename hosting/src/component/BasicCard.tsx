@@ -2,7 +2,6 @@ import React from "react";
 import {
     Card,
     Icon,
-    Image
 } from "semantic-ui-react";
 
 interface BasicCardProps {
@@ -27,24 +26,15 @@ export class BasicCard extends React.Component<BasicCardProps, BasicCardState> {
 
     /* eslint-disable jsx-a11y/anchor-is-valid  */
     render() {
-        const { title, altTags, otherTags, classifies, imageLink } = this.props;
+        const { title } = this.props;
 
         return (
-            <Card link>
-                <Image src={imageLink ? imageLink : this.defaultImageSrc} wrapped ui={false}/>
+            <Card link onClick={() => console.log(title)}>
                 <Card.Content>
                     <Card.Header>{title}</Card.Header>
-                    <Card.Meta>{altTags}</Card.Meta>
-                    <Card.Description>{otherTags}</Card.Description>
-                    <Card.Meta textAlign='right'><a href='#'>{classifies}</a></Card.Meta>
                 </Card.Content>
                 <Card.Content extra>
-                    <a
-                        href='#'
-                        onClick={() => {}}
-                    >
-                        <Icon name='star' color='yellow'/>
-                    </a>
+                    <Icon name='star' color='yellow' link/>
                 </Card.Content>
             </Card>
         )

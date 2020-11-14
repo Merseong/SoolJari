@@ -38,7 +38,7 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
             //console.log(token, user);
             this.setState({
                 isLogin: true,
-                isAdmin: user?.email === 'esc990720@korea.ac.kr' || user?.email === 'esc990720@gmail.com',
+                isAdmin: user?.email === 'esc990720@korea.ac.kr',
             })
             console.log('Google Login');
         })
@@ -84,10 +84,10 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
                         pointing='top right'
                     >
                         <Dropdown.Menu>
-                            <Dropdown.Item >
+                            <Dropdown.Item>
                                 <AddCardModal/>
                             </Dropdown.Item>
-                            <Dropdown.Item >
+                            <Dropdown.Item>
                                 <Icon name='minus' color='red'/>
                             </Dropdown.Item>
                         </Dropdown.Menu>
@@ -99,14 +99,11 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
                         onClick={() => this.logout()}
                     />
                 :
-                <>
-                    <Button
-                        basic
-                        icon={<Icon fitted size='large' name='user'/>}
-                        onClick={() => this.googleLogin()}
-                    />
-                    <AddCardModal/>
-                </>
+                <Button
+                    basic
+                    icon={<Icon fitted size='large' name='user'/>}
+                    onClick={() => this.googleLogin()}
+                />
         )
     }
 }
