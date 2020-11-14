@@ -7,6 +7,7 @@ import {
     Icon
 } from "semantic-ui-react";
 import { AddCardModal } from "./AddCardModal";
+import { RemoveCardModal } from "./RemoveCardModal";
 
 interface LoginButtonProps {
 }
@@ -88,7 +89,7 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
                                 <AddCardModal/>
                             </Dropdown.Item>
                             <Dropdown.Item>
-                                <Icon name='minus' color='red'/>
+                                <RemoveCardModal/>
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>

@@ -23,7 +23,7 @@ export class CardGroup extends React.Component<CardGroupProps, CardGroupState> {
         const db = getFirestoreDB();
         db.collection('cards').onSnapshot(querySnapshot => {
             this.setState({
-                cardItems: querySnapshot.docs.map(doc => new CardClass(doc.data().title))
+                cardItems: querySnapshot.docs.map(doc => new CardClass(doc.id, doc.data().title))
             })
         })
     }
@@ -38,8 +38,9 @@ export class CardGroup extends React.Component<CardGroupProps, CardGroupState> {
                 {
                     this.state.cardItems.map(card => 
                         <BasicCard
-                            key={card.title}
+                            key={card.id}
                             title={card.title}
+                            id={card.id}
                             altTags={''}
                             otherTags={''}
                             classifies={''}

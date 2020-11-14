@@ -17,8 +17,12 @@ export function getFirestoreDB() {
     return db;
 }
 
-export function addCard(newCard: Card) {
+export function addCard(newCardTitle: string) {
     return db.collection('cards').doc().set({
-        title: newCard.title,
+        title: newCardTitle,
     })
+}
+
+export function removeCard(id: string) {
+    return db.collection('cards').doc(id).delete();
 }

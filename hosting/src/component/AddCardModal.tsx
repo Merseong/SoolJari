@@ -6,7 +6,6 @@ import {
     Button,
     Dropdown
 } from "semantic-ui-react";
-import { Card } from "../firestore/Card";
 import { addCard } from "../firestore/FirestoreActions";
 
 interface AddCardModalProps {
@@ -67,7 +66,7 @@ export class AddCardModal extends React.Component<AddCardModalProps, AddCardModa
     }
 
     formSubmit() {
-        addCard(new Card(this.state.title));
+        addCard(this.state.title);
         this.setOpen(false);
     }
 

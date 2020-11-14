@@ -5,6 +5,7 @@ import {
 } from "semantic-ui-react";
 
 interface BasicCardProps {
+    id: string,
     title: string,
     altTags: string,
     otherTags: string, // 임시
@@ -26,12 +27,13 @@ export class BasicCard extends React.Component<BasicCardProps, BasicCardState> {
 
     /* eslint-disable jsx-a11y/anchor-is-valid  */
     render() {
-        const { title } = this.props;
+        const { id, title } = this.props;
 
         return (
             <Card link onClick={() => console.log(title)}>
                 <Card.Content>
                     <Card.Header>{title}</Card.Header>
+                    <Card.Meta>{id}</Card.Meta>
                 </Card.Content>
                 <Card.Content extra>
                     <Icon name='star' color='yellow' link/>
