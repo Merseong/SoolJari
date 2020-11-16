@@ -95,19 +95,11 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
                     dispatch => (
                         isLogin ?
                         isAdmin ?
-                            <Dropdown
-                                icon={<Icon name='user' size='large' fitted color='green'/>}
-                                floating
-                                button
-                                className='icon'
-                                pointing='top right'
-        
-                            >
-                                <Dropdown.Menu>
-                                    <Dropdown.Item content={<AddCardModal/>}/>
-                                    <Dropdown.Item content={<RemoveCardModal/>}/>
-                                </Dropdown.Menu>
-                            </Dropdown>
+                            <Button
+                                color='green'
+                                icon={<Icon fitted size='large' name='user'/>}
+                                onClick={() => this.logout(dispatch!)}
+                            />
                             :
                             <Button
                                 color='red'
