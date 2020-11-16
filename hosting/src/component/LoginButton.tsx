@@ -3,11 +3,8 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import {
     Button,
-    Dropdown,
     Icon
 } from "semantic-ui-react";
-import { AddCardModal } from "./AddCardModal";
-import { RemoveCardModal } from "./RemoveCardModal";
 import { LoginDispatch, LoginDispatchContext } from "../context/LoginContext";
 
 interface LoginButtonProps {
@@ -80,10 +77,6 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
                 console.error(e)
             });
         }
-    }
-
-    componentDidUpdate() {
-        console.log(this.context);
     }
 
     render() {

@@ -1,8 +1,12 @@
 import React from "react";
 import {
+    Button,
     Card,
+    Grid,
     Icon,
 } from "semantic-ui-react";
+import { LoginStateContext } from "../context/LoginContext";
+import { removeCard } from "../firestore/FirestoreActions";
 
 interface BasicCardProps {
     id: string,
@@ -36,7 +40,27 @@ export class BasicCard extends React.Component<BasicCardProps, BasicCardState> {
                     <Card.Meta>{id}</Card.Meta>
                 </Card.Content>
                 <Card.Content extra>
-                    <Icon name='star' color='yellow' link/>
+                    <Grid>
+                        <Grid.Column floated='left'>
+                            <Icon name='star' color='yellow' link/>
+                        </Grid.Column>
+                        <LoginStateContext.Consumer>
+                            {
+                                loginState => (
+                                    loginState?.isAdmin ?
+                                    <Grid.Column floated='right' width={3}>
+                                        <Button circular size='mini' icon='minus' color='red'
+                                            onClick={() => {
+                                                removeCard(id);
+                                            }}
+                                        />
+                                    </Grid.Column>
+                                    :
+                                    <></>
+                                )
+                            }
+                        </LoginStateContext.Consumer>
+                    </Grid>
                 </Card.Content>
             </Card>
         )

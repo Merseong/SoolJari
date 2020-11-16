@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, Icon, Menu } from "semantic-ui-react";
+import { Card } from "semantic-ui-react";
 import { getFirestoreDB } from "../firestore/FirestoreActions";
 import { BasicCard } from "./BasicCard";
 import { Card as CardClass } from "../firestore/Card";

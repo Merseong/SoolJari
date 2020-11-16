@@ -1,7 +1,6 @@
 import React from "react";
 import {
     Modal,
-    Icon,
     Input,
     Button,
     Dropdown
