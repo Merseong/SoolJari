@@ -37,11 +37,13 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
             // The signed-in user info.
             const user = result.user;
             //console.log(token, user);
-            this.setState({
-                isLogin: true,
-                isAdmin: user?.email === 'esc990720@korea.ac.kr',
-            })
-            console.log('Google Login');
+            if (user) {
+                this.setState({
+                    isLogin: true,
+                    isAdmin: user?.email === 'esc990720@korea.ac.kr',
+                });
+                console.log('Google Login');
+            }
         })
         .catch(error => {
             // Handle Errors here.
@@ -62,7 +64,7 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
                 this.setState({
                     isLogin: false,
                     isAdmin: false,
-                })
+                });
                 console.log('Logout');
             })
             .catch(e => {
