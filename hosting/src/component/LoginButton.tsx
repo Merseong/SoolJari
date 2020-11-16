@@ -8,6 +8,7 @@ import {
 } from "semantic-ui-react";
 import { AddCardModal } from "./AddCardModal";
 import { RemoveCardModal } from "./RemoveCardModal";
+import { LoginDispatch, LoginDispatchContext } from "../context/LoginContext";
 
 interface LoginButtonProps {
 }
@@ -26,7 +27,7 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
         }
     }
 
-    googleLogin() {
+    googleLogin(loginDispatch: LoginDispatch) {
         const provider = new firebase.auth.GoogleAuthProvider();
 
         firebase.auth().signInWithPopup(provider)
@@ -40,8 +41,13 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
             if (user) {
                 this.setState({
                     isLogin: true,
-                    isAdmin: user?.email === 'esc990720@korea.ac.kr',
+                    isAdmin: user.email === 'esc990720@korea.ac.kr',
                 });
+                loginDispatch({
+                    type: 'LOGIN',
+                    isAdmin: user.email === 'esc990720@korea.ac.kr',
+                    loginData: user,
+                })
                 console.log('Google Login');
             }
         })
@@ -57,7 +63,7 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
         });
     }
 
-    logout() {
+    logout(loginDispatch: LoginDispatch) {
         if (this.state.isLogin) {
             firebase.auth().signOut()
             .then(() => {
@@ -65,6 +71,9 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
                     isLogin: false,
                     isAdmin: false,
                 });
+                loginDispatch({
+                    type: 'LOGOUT'
+                })
                 console.log('Logout');
             })
             .catch(e => {
@@ -73,37 +82,47 @@ export class LoginButton extends React.Component<LoginButtonProps, LoginButtonSt
         }
     }
 
+    componentDidUpdate() {
+        console.log(this.context);
+    }
+
     render() {
         const { isLogin, isAdmin } = this.state;
 
         return (
-            isLogin ?
-                isAdmin ?
-                    <Dropdown
-                        icon={<Icon name='user' size='large' fitted color='green'/>}
-                        floating
-                        button
-                        className='icon'
-                        pointing='top right'
-
-                    >
-                        <Dropdown.Menu fitted>
-                            <Dropdown.Item content={<AddCardModal/>}/>
-                            <Dropdown.Item content={<RemoveCardModal/>}/>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    :
-                    <Button
-                        color='red'
-                        icon={<Icon fitted size='large' name='user'/>}
-                        onClick={() => this.logout()}
-                    />
-                :
-                <Button
-                    basic
-                    icon={<Icon fitted size='large' name='user'/>}
-                    onClick={() => this.googleLogin()}
-                />
+            <LoginDispatchContext.Consumer>
+                {
+                    dispatch => (
+                        isLogin ?
+                        isAdmin ?
+                            <Dropdown
+                                icon={<Icon name='user' size='large' fitted color='green'/>}
+                                floating
+                                button
+                                className='icon'
+                                pointing='top right'
+        
+                            >
+                                <Dropdown.Menu>
+                                    <Dropdown.Item content={<AddCardModal/>}/>
+                                    <Dropdown.Item content={<RemoveCardModal/>}/>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                            :
+                            <Button
+                                color='red'
+                                icon={<Icon fitted size='large' name='user'/>}
+                                onClick={() => this.logout(dispatch!)}
+                            />
+                        :
+                        <Button
+                            basic
+                            icon={<Icon fitted size='large' name='user'/>}
+                            onClick={() => this.googleLogin(dispatch!)}
+                        />
+                    )
+                }
+            </LoginDispatchContext.Consumer>
         )
     }
 }
