@@ -15,6 +15,8 @@ interface BasicCardProps {
     otherTags: string, // 임시
     classifies: string, // 임시
     imageLink?: string,
+    isStared: boolean,
+    setStared: (setVal: boolean) => void,
 }
 
 interface BasicCardState {
@@ -31,7 +33,7 @@ export class BasicCard extends React.Component<BasicCardProps, BasicCardState> {
 
     /* eslint-disable jsx-a11y/anchor-is-valid  */
     render() {
-        const { id, title } = this.props;
+        const { id, title, isStared, setStared } = this.props;
 
         return (
             <Card link onClick={() => console.log(title)}>
@@ -42,7 +44,7 @@ export class BasicCard extends React.Component<BasicCardProps, BasicCardState> {
                 <Card.Content extra>
                     <Grid>
                         <Grid.Column floated='left'>
-                            <Icon name='star' color='yellow' link/>
+                            <Icon name={isStared ? "star" : "star outline"} color='yellow' link/>
                         </Grid.Column>
                         <LoginStateContext.Consumer>
                             {

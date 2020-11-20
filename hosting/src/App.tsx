@@ -27,12 +27,11 @@ function App() {
 
   ///-------------------------------------------------------------
 
-
   return (
     <LoginContextProvider>
       <TopMenubar/>
       <Container fluid>
-        <CardGroup/>
+        <CardGroup cardItems={[]}/>
       </Container>
     </LoginContextProvider>
   );
