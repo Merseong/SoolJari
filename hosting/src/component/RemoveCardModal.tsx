@@ -1,7 +1,6 @@
 import React from "react";
 import {
     Button,
-    Icon,
     Input,
     Modal
 } from "semantic-ui-react";
@@ -47,7 +46,7 @@ export class RemoveCardModal extends React.Component<RemoveCardModalProps,Remove
                 onClose={() => setOpen(false)}
                 onOpen={() => setOpen(true)}
                 open={open}
-                trigger={<Icon circular fitted name='minus' color='red' link/>}
+                trigger={<Button circular size='mini' icon='minus' color='red'/>}
                 closeOnDimmerClick={false}
             >
                 <Modal.Header>카드 삭제</Modal.Header>

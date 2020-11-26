@@ -1,42 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "semantic-ui-react";
-import { getFirestoreDB } from "../firestore/FirestoreActions";
 import { BasicCard } from "./BasicCard";
 import { Card as CardClass } from "../firestore/Card";
+import { useLoginState } from "../context/LoginContext";
+import { AddCardModal } from "./AddCardModal";
+import { getFirestoreDB } from "../firestore/FirestoreActions";
 
 interface CardGroupProps {
-}
-
-interface CardGroupState {
     cardItems: Array<CardClass>,
 }
 
-export class CardGroup extends React.Component<CardGroupProps, CardGroupState> {
-    constructor(props: CardGroupProps) {
-        super(props);
-        this.state = {
-            cardItems: [],
-        }
-    }
+export function CardGroup({cardItems}: CardGroupProps) {
+    const loginState = useLoginState();
+    const [ myCardItems, setMyCardItems ] = useState<Array<CardClass>>([]);
+    let [ isLoadingCards, setLoadingCards ] = useState(false);
 
-    getAllCards() {
+    if (loginState.isLogin && !isLoadingCards) {
+        setLoadingCards(true);
         const db = getFirestoreDB();
-        db.collection('cards').onSnapshot(querySnapshot => {
-            this.setState({
-                cardItems: querySnapshot.docs.map(doc => new CardClass(doc.id, doc.data().title))
-            })
+        db.collection('users').doc(loginState.loginData?.uid).collection('stared').get()
+        .then(querySnapshot => {
+            return querySnapshot.docs.map(doc => doc.data().ref);
         })
+        .then(docsRefs => {
+            return Promise.all(docsRefs.map(docsRef => docsRef.get()));
+        })
+        .then(docs => {
+            setMyCardItems(docs.map(doc => new CardClass(
+                doc.id,
+                doc.data()?.title,
+            )));
+        })
+    } else if (!loginState.isLogin && isLoadingCards) {
+        setLoadingCards(false);
+        setMyCardItems([]);
     }
 
-    componentDidMount() {
-        this.getAllCards();
-    }
-
-    render() {
-        return (
+    return (
+        <>
             <Card.Group centered key='cardGroup'>
                 {
-                    this.state.cardItems.map(card => 
+                    myCardItems.map(card => 
                         <BasicCard
                             key={card.id}
                             title={card.title}
@@ -44,10 +48,26 @@ export class CardGroup extends React.Component<CardGroupProps, CardGroupState> {
                             altTags={''}
                             otherTags={''}
                             classifies={''}
+                            isStared={true}
+                            setStared={(setVal: boolean) => console.log(setVal)}
                         />
                     )
                 }
             </Card.Group>
-        )
-    }
+            {
+                loginState.isAdmin ? 
+                <div
+                    style={{
+                        position: 'fixed',
+                        bottom: '24px',
+                        right: '24px',
+                    }}
+                >
+                    <AddCardModal/>
+                </div>
+                :
+                <></>
+            }
+        </>
+    )
 }

@@ -7,6 +7,7 @@ import {
 import { initFirestore } from './firestore/FirestoreActions';
 import { CardGroup } from './component/CardGroup';
 import { TopMenubar } from './component/TopMenubar';
+import { LoginContextProvider } from './context/LoginContext';
 
 function App() {
 
@@ -24,13 +25,15 @@ function App() {
   !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app();
   initFirestore();
 
+  ///-------------------------------------------------------------
+
   return (
-    <div>
+    <LoginContextProvider>
       <TopMenubar/>
       <Container fluid>
-        <CardGroup/>
+        <CardGroup cardItems={[]}/>
       </Container>
-    </div>
+    </LoginContextProvider>
   );
 }
 

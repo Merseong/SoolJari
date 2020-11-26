@@ -1,8 +1,12 @@
 import React from "react";
 import {
+    Button,
     Card,
+    Grid,
     Icon,
 } from "semantic-ui-react";
+import { LoginStateContext } from "../context/LoginContext";
+import { removeCard } from "../firestore/FirestoreActions";
 
 interface BasicCardProps {
     id: string,
@@ -11,6 +15,8 @@ interface BasicCardProps {
     otherTags: string, // 임시
     classifies: string, // 임시
     imageLink?: string,
+    isStared: boolean,
+    setStared: (setVal: boolean) => void,
 }
 
 interface BasicCardState {
@@ -27,7 +33,7 @@ export class BasicCard extends React.Component<BasicCardProps, BasicCardState> {
 
     /* eslint-disable jsx-a11y/anchor-is-valid  */
     render() {
-        const { id, title } = this.props;
+        const { id, title, isStared, setStared } = this.props;
 
         return (
             <Card link onClick={() => console.log(title)}>
@@ -36,7 +42,27 @@ export class BasicCard extends React.Component<BasicCardProps, BasicCardState> {
                     <Card.Meta>{id}</Card.Meta>
                 </Card.Content>
                 <Card.Content extra>
-                    <Icon name='star' color='yellow' link/>
+                    <Grid>
+                        <Grid.Column floated='left'>
+                            <Icon name={isStared ? "star" : "star outline"} color='yellow' link/>
+                        </Grid.Column>
+                        <LoginStateContext.Consumer>
+                            {
+                                loginState => (
+                                    loginState?.isAdmin ?
+                                    <Grid.Column floated='right' width={3}>
+                                        <Button circular size='mini' icon='minus' color='red'
+                                            onClick={() => {
+                                                removeCard(id);
+                                            }}
+                                        />
+                                    </Grid.Column>
+                                    :
+                                    <></>
+                                )
+                            }
+                        </LoginStateContext.Consumer>
+                    </Grid>
                 </Card.Content>
             </Card>
         )
