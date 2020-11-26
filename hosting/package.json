@@ -1,51 +1,15 @@
 {
-  "name": "hosting",
-  "version": "0.1.0",
-  "private": true,
+  "name": "sooljari",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.5",
-    "@testing-library/react": "^11.1.1",
-    "@testing-library/user-event": "^12.2.0",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.19.3",
-    "@types/react": "^16.9.56",
-    "@types/react-dom": "^16.9.9",
-    "firebase": "^8.0.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "4.0.0",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^2.0.1",
-    "typescript": "^4.0.5",
-    "web-vitals": "^0.2.4"
+    "firebase-tools": "^8.16.2"
   },
+  "devDependencies": {},
   "scripts": {
-    "start": "react-scripts start",
-    "deploy": "npm run build && npx firebase deploy",
-    "preview": "npm run build && npx firebase hosting:channel:deploy preview",
-    "build": "react-scripts build",
-    "rstest": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "npx firebase emulators:start"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "firebase-tools": "^8.15.1"
-  }
+  "author": "",
+  "license": "ISC"
 }
