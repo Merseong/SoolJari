@@ -8,6 +8,8 @@ For my perfect alcohol life
 
 ### 초기 설치
 
+현재는 Codespace 절찬 이용중 (12월 31일까지)
+
 [Git](https://git-scm.com/download/win)
 
 [Node.js](https://nodejs.org/dist/v14.15.0/node-v14.15.0-x64.msi)
