@@ -7,3 +7,5 @@ https://medium.com/@muccy/the-simplest-backend-for-my-app-the-senior-newbie-ques
 https://medium.com/@muccy/install-react-with-typescript-in-a-firebase-hosting-project-8db66c59b202
 
 https://stackoverflow.com/questions/46568142/google-firestore-query-on-substring-of-a-property-value-text-search
+
+https://chanspark.github.io/2017/12/06/Firebase-%EA%B3%B5%EB%B6%80.html
