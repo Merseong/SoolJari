@@ -7,7 +7,8 @@ import {
   Button
 } from '@material-ui/core';
 import {
-  AssignmentInd
+  AssignmentInd,
+  LocalBar,
 } from '@material-ui/icons';
 import { googleLoginAction, logoutAction } from '../firebase';
 import SuperContext from '../customs/SuperContext';
@@ -33,6 +34,7 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar variant='dense'>
+          <LocalBar/>
           <Typography edge="start" variant="h6" className={classes.title}>
             SoolJari
           </Typography>
