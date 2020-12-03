@@ -4,7 +4,7 @@ import { fire } from './firebase';
 import firebase from 'firebase/app';
 import TopAppBar from "./components/TopAppBar";
 import SuperContext from './customs/SuperContext';
-import { Typography } from "@material-ui/core";
+import DataGrid from "./components/DataGrid";
 
 function App() {
   const [ userData, setUserData ] = useState(undefined);
@@ -18,19 +18,14 @@ function App() {
         setUserData(undefined);
       }
     });
-  })
+  });
   
   return (
     <SuperContext.Provider value={{
       userData,
     }}>
       <TopAppBar/>
-      <div style={{
-        margin: '8px',
-      }}>
-        <Typography variant='h6'>{userData ? userData.email : ''}</Typography>
-        <Typography variant='h6'>{userData ? userData.uid : ''}</Typography>
-      </div>
+      <DataGrid/>
     </SuperContext.Provider>
   );
 }
