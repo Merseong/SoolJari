@@ -5,6 +5,7 @@ import firebase from 'firebase/app';
 import TopAppBar from "./components/TopAppBar";
 import SuperContext from './customs/SuperContext';
 import DataGrid from "./components/DataGrid";
+import DataContext from "./customs/DataContext";
 
 function App() {
   const [ userData, setUserData ] = useState(undefined);
@@ -24,8 +25,10 @@ function App() {
     <SuperContext.Provider value={{
       userData,
     }}>
-      <TopAppBar/>
-      <DataGrid/>
+      <DataContext>
+        <TopAppBar/>
+        <DataGrid/>
+      </DataContext>
     </SuperContext.Provider>
   );
 }

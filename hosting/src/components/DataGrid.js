@@ -6,6 +6,7 @@ import {
   CardContent
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
+import { useDataState } from '../customs/DataContext';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -16,9 +17,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function DataGrid() {
 
-  const tileData = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ,13, 14, 15, 16
-  ];
+  const cardData = useDataState().cardData;
 
   const classes = useStyles();
 
@@ -26,7 +25,7 @@ export default function DataGrid() {
     <div className={classes.container}>
     <Grid container justify="flex-start" spacing={2}>
       {
-        tileData.map(tile => (
+        cardData.map(tile => (
           <Grid item xs={6} sm={3} md={2} lg={2}>
             <Card>
               <CardContent>
