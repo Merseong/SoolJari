@@ -6,7 +6,10 @@ import {
   CardContent
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
-import { useDataState } from '../customs/DataContext';
+import { useDataState, useDataDispatch } from '../customs/DataContext';
+//import firebase from 'firebase/app';
+import { useConstructor } from '../customs/hooks';
+import { getAllCards } from '../firebase';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -16,9 +19,26 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function DataGrid() {
+  useConstructor(() => {
+    /*firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        getAllCards()
+        .then(cards => {
+          cardDispatch({ type: 'SET', cards: cards.map(card => card.title)});
+        })
+      } else {
+        cardDispatch({ type: 'SET', cards: [] });
+      }
+    })*/
+    // for dev
+    getAllCards()
+    .then(cards => {
+      cardDispatch({ type: 'SET', cards: cards.map(card => card.title)});
+    });
+  });
 
   const cardData = useDataState().cardData;
-
+  const cardDispatch = useDataDispatch();
   const classes = useStyles();
 
   return (

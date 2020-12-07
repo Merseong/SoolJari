@@ -1,35 +1,42 @@
 import React, { useState } from "react";
 import { useConstructor } from './customs/hooks';
-import { fire } from './firebase';
+import { fire, getUserData } from './firebase';
 import firebase from 'firebase/app';
 import TopAppBar from "./components/TopAppBar";
-import SuperContext from './customs/SuperContext';
+import UserContext from './customs/UserContext';
 import DataGrid from "./components/DataGrid";
 import DataContext from "./customs/DataContext";
 
 function App() {
+  const [ user, setUser ] = useState(undefined);
   const [ userData, setUserData ] = useState(undefined);
 
   useConstructor(() => {
     fire();
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        setUserData(user);
+        setUser(user);
+        getUserData(user.uid)
+        .then(doc => {
+          setUserData(doc.data());
+        });
       } else {
+        setUser(undefined);
         setUserData(undefined);
       }
     });
   });
   
   return (
-    <SuperContext.Provider value={{
+    <UserContext.Provider value={{
+      user,
       userData,
     }}>
       <DataContext>
         <TopAppBar/>
         <DataGrid/>
       </DataContext>
-    </SuperContext.Provider>
+    </UserContext.Provider>
   );
 }
 

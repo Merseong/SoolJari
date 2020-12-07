@@ -1,25 +1,34 @@
 import React, { useContext, useReducer } from 'react';
 
+// https://react.vlpt.us/using-typescript/04-ts-context.html
+
 export const DataStateContext = React.createContext({
   cardData: [],
 })
 
-export const DataDispatchContext = React.createContext();
+export const DataDispatchContext = React.createContext(({action}) => {});
 
 function reducer(state, action) {
   switch(action.type) {
+    case 'SET':
+      console.log(action.cards);
+      return {
+        cardData: action.cards
+      }
     case 'ADD':
+      console.log(state);
       return state;
     case 'DEL':
       return state;
     default:
+      console.error(action);
       throw new Error('Unhandled action in DataDispatch');
   }
 }
 
 export default function DataContext({ children }) {
   const [state, dispatch] = useReducer(reducer, {
-    cardData: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ,13, 14, 15, 16]
+    cardData: []
   });
 
   return (
