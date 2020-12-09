@@ -4,22 +4,40 @@ import React, { useContext, useReducer } from 'react';
 
 export const DataStateContext = React.createContext({
   cardData: [],
+  cardsLoaded: false,
+  watchingStared: false,
+  staredCardData: [],
+  staredCardsLoaded: false,
 })
 
-export const DataDispatchContext = React.createContext(({action}) => {});
+export const DataDispatchContext = React.createContext(({type, action}) => {});
 
 function reducer(state, action) {
   switch(action.type) {
-    case 'SET':
-      console.log(action.cards);
-      return {
-        cardData: action.cards
+    case 'set':
+      //console.log(action.cards);
+      if (action.isStared) {
+        return {
+          ...state,
+          staredCardData: action.cards,
+          staredCardsLoaded: true,
+        }
+      } else {
+        return {
+          ...state,
+          cardData: action.cards,
+          cardsLoaded: true,
+        }
       }
-    case 'ADD':
-      console.log(state);
+    case 'add':
       return state;
-    case 'DEL':
+    case 'del':
       return state;
+    case 'setWatchingStared':
+      return {
+        ...state,
+        watchingStared: action.val,
+      }
     default:
       console.error(action);
       throw new Error('Unhandled action in DataDispatch');
@@ -28,7 +46,11 @@ function reducer(state, action) {
 
 export default function DataContext({ children }) {
   const [state, dispatch] = useReducer(reducer, {
-    cardData: []
+    cardData: [],
+    cardsLoaded: false,
+    watchingStared: false,
+    staredCardData: [],
+    staredCardsLoaded: false,
   });
 
   return (

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
@@ -11,7 +11,8 @@ import {
   LocalBar,
 } from '@material-ui/icons';
 import { googleLoginAction, logoutAction } from '../firebase';
-import UserContext from '../customs/UserContext';
+import { useUserContext } from '../customs/UserContext';
+import RefreshStaredButton from './RefreshStaredButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonAppBar() {
   const classes = useStyles();
-  const userContext = useContext(UserContext);
+  const userContext = useUserContext();
   const isAdmin = userContext.user?.email === 'esc990720@korea.ac.kr';
 
   return (
@@ -38,6 +39,11 @@ export default function ButtonAppBar() {
           <Typography edge="start" variant="h6" className={classes.title}>
             SoolJari
           </Typography>
+          {
+            userContext.user ? 
+            <RefreshStaredButton/> :
+            <></>
+          }
           <Button
             color='inherit'
             onClick={() => {
@@ -49,11 +55,9 @@ export default function ButtonAppBar() {
             }}
           >
           {userContext.user ? (
-            (
-              isAdmin ? 
-              <AssignmentInd/> :
-              <AssignmentInd color='secondary'/>
-            )
+            isAdmin ? 
+            <AssignmentInd/> :
+            <AssignmentInd color='secondary'/>
           ) : 'Login'}
           </Button>
         </Toolbar>

@@ -24,21 +24,22 @@ export default function DataGrid() {
       if (user) {
         getAllCards()
         .then(cards => {
-          cardDispatch({ type: 'SET', cards: cards.map(card => card.title)});
+          cardDispatch({ type: 'set', cards: cards.map(card => card.title)});
         })
       } else {
-        cardDispatch({ type: 'SET', cards: [] });
+        cardDispatch({ type: 'set', cards: [] });
       }
     })*/
     // for dev
     getAllCards()
     .then(cards => {
-      cardDispatch({ type: 'SET', cards: cards.map(card => card.title)});
+      dataDispatch({ type: 'set', cards: cards.map(card => card.title)});
     });
   });
 
-  const cardData = useDataState().cardData;
-  const cardDispatch = useDataDispatch();
+  const dataState = useDataState();
+  const cardData = dataState.watchingStared ? dataState.staredCardData : dataState.cardData;
+  const dataDispatch = useDataDispatch();
   const classes = useStyles();
 
   return (

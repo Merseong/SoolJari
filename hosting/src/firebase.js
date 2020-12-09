@@ -50,6 +50,10 @@ export const getAllCards = () => new Promise((res, rej) => {
 
 export const getUserData = (uid) => db.collection('users').doc(uid).get()
 
+export const getStaredCards = () => new Promise((res, rej) => {
+    
+})
+
 /// Firebase auth
 export const googleLoginAction = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
