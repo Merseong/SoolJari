@@ -7,6 +7,7 @@ import {
   StarBorder
 } from '@material-ui/icons';
 import { useDataDispatch, useDataState } from '../customs/DataContext';
+import { useUserContext } from '../customs/UserContext';
 import { getStaredCards } from '../firebase';
 
 export default function RefreshStaredButton() {
@@ -14,12 +15,14 @@ export default function RefreshStaredButton() {
 
   const dataDispatch = useDataDispatch();
   const dataState = useDataState();
+  const userContext = useUserContext();
 
   const clickToggleStar = () => {
-    setViewStar(!viewStar);
-    dataDispatch({ type:'setWatchingStared', val: !viewStar});
-    if (!dataState.staredCardsLoaded && !viewStar) {
-      getStaredCards()
+    const nextViewStar = !viewStar;
+    setViewStar(nextViewStar);
+    dataDispatch({ type:'setWatchingStared', val: nextViewStar});
+    if (!dataState.staredCardsLoaded && nextViewStar) {
+      getStaredCards(userContext.user.uid)
       .then(cards => {
         dataDispatch({ type: 'set', cards: cards.map(card => card.title), isStared: true});
       });

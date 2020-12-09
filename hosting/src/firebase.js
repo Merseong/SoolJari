@@ -50,8 +50,23 @@ export const getAllCards = () => new Promise((res, rej) => {
 
 export const getUserData = (uid) => db.collection('users').doc(uid).get()
 
-export const getStaredCards = () => new Promise((res, rej) => {
-    
+export const getStaredCards = (uid) => new Promise((res, rej) => {
+    checkDbInitialized()
+    .then(() => {
+        return db.collection('users').doc(uid).collection('stared').get();
+    })
+    .then(querySnapshot => {
+        return querySnapshot.docs.map(doc => doc.data().ref);
+    })
+    .then(docRefs => {
+        return Promise.all(docRefs.map(docRef => db.collection('cards').doc(docRef.id).get()));
+    })
+    .then(documents => {
+        res(documents.map(doc => doc.data()));
+    })
+    .catch(err => {
+        rej(err);
+    })
 })
 
 /// Firebase auth
