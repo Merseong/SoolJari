@@ -62,12 +62,18 @@ export const getStaredCards = (uid) => new Promise((res, rej) => {
         return Promise.all(docRefs.map(docRef => db.collection('cards').doc(docRef.id).get()));
     })
     .then(documents => {
-        res(documents.map(doc => doc.data()));
+        res(documents.map(doc => new CardData(doc.data())));
     })
     .catch(err => {
         rej(err);
     })
 })
+
+export class CardData {
+    constructor(data) {
+        this.title = data.title; 
+    }
+}
 
 /// Firebase auth
 export const googleLoginAction = () => {

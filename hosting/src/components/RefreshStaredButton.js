@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Button
+  IconButton
 } from '@material-ui/core';
 import {
   Star,
@@ -24,13 +24,13 @@ export default function RefreshStaredButton() {
     if (!dataState.staredCardsLoaded && nextViewStar) {
       getStaredCards(userContext.user.uid)
       .then(cards => {
-        dataDispatch({ type: 'set', cards: cards.map(card => card.title), isStared: true});
+        dataDispatch({ type: 'set', cards, isStared: true});
       });
     }
   }
 
   return (
-    <Button
+    <IconButton
       color='inherit'
       onClick={clickToggleStar}
     >
@@ -39,6 +39,6 @@ export default function RefreshStaredButton() {
         <Star/> :
         <StarBorder/>
       }
-    </Button>
+    </IconButton>
   )
 }

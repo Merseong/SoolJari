@@ -1,15 +1,13 @@
 import React from 'react';
 import {
   Grid,
-  Card,
-  Typography,
-  CardContent
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { useDataState, useDataDispatch } from '../customs/DataContext';
 //import firebase from 'firebase/app';
 import { useConstructor } from '../customs/hooks';
 import { getAllCards } from '../firebase';
+import MyCard from './MyCard';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -33,7 +31,7 @@ export default function DataGrid() {
     // for dev
     getAllCards()
     .then(cards => {
-      dataDispatch({ type: 'set', cards: cards.map(card => card.title)});
+      dataDispatch({ type: 'set', cards });
     });
   });
 
@@ -47,14 +45,10 @@ export default function DataGrid() {
     <Grid container justify="flex-start" spacing={2}>
       {
         cardData.map(tile => (
-          <Grid item xs={6} sm={3} md={2} lg={2}>
-            <Card>
-              <CardContent>
-                <Typography variant="h5" component="h2">
-                  {tile}
-                </Typography>
-              </CardContent>
-            </Card>
+          <Grid item xs={6} sm={3} md={2} lg={2} key={tile.title}>
+            <MyCard
+              cardData={tile}
+            />
           </Grid>
         ))
       }
