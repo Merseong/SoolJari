@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import {
   Star,
-  StarBorder
 } from '@material-ui/icons';
 
 export default function MyCard(props) {

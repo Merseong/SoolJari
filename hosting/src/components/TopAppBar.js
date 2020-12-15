@@ -1,5 +1,5 @@
 import React from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
   Toolbar,
@@ -10,7 +10,6 @@ import {
   AssignmentInd,
   LocalBar,
   CropSquare,
-  Search,
 } from '@material-ui/icons';
 import { googleLoginAction, logoutAction } from '../firebase';
 import { useUserContext } from '../customs/UserContext';

@@ -4,6 +4,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { getAllCards } from '../firebase';
 
 export default function SearchBar() {
   const [open, setOpen] = React.useState(false);
@@ -18,11 +19,21 @@ export default function SearchBar() {
     }
 
     (async () => {
+      /* example
       const response = await fetch('https://country.register.gov.uk/records.json?page-size=5000');
       const countries = await response.json();
 
       if (active) {
         setOptions(Object.keys(countries).map((key) => countries[key].item[0]));
+        console.log(Object.keys(countries).map((key) => countries[key].item[0]));
+      }
+      */
+      const response = await getAllCards();
+
+      if (active) {
+        setOptions(response.map(doc => { return {
+          name: doc.title,
+        }}));
       }
     })();
 
