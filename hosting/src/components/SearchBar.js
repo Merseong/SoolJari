@@ -8,6 +8,15 @@ import { Add } from "@material-ui/icons";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { getAllCards } from '../firebase';
 
+function waitUntilValue(value) {
+  return new Promise((res, rej) => {
+    (function waitValue() {
+      if (value !== '') res();
+      else setTimeout(waitValue, 1000);
+    })();
+  })
+}
+
 export default function SearchBar() {
   const [value, setValue] = React.useState(null);
   const [open, setOpen] = React.useState(false);
@@ -31,6 +40,7 @@ export default function SearchBar() {
         console.log(Object.keys(countries).map((key) => countries[key].item[0]));
       }
       */
+      await waitUntilValue(value);
       const response = await getAllCards();
 
       if (active) {
@@ -76,7 +86,6 @@ export default function SearchBar() {
         inputValue={value}
         onInputChange={(event, newValue) => {
           setValue(newValue);
-          console.log(newValue);
         }}
         renderInput={(params) => (
           <TextField
