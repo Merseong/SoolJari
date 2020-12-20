@@ -11,14 +11,19 @@ import { getAllCards } from '../firebase';
 function waitUntilValue(value) {
   return new Promise((res, rej) => {
     (function waitValue() {
-      if (value !== '') res();
+      if (value !== nullOption) res();
       else setTimeout(waitValue, 1000);
     })();
   })
 }
 
+const nullOption = {
+  name: '',
+  val: null
+}
+
 export default function SearchBar() {
-  const [value, setValue] = React.useState(null);
+  const [value, setValue] = React.useState(nullOption);
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const loading = open && options.length === 0;
@@ -63,8 +68,11 @@ export default function SearchBar() {
   }, [open]);
 
   const addCardButtonAction = () => {
-    if (value !== null) alert(value.name);
-    setValue(null);
+    if (value !== nullOption) {
+      alert(value.name);
+      console.log(value.val);
+    }
+    setValue(nullOption);
   }
 
   return (
@@ -83,8 +91,8 @@ export default function SearchBar() {
         getOptionLabel={(option) => option.name}
         options={options}
         loading={loading}
-        inputValue={value}
-        onInputChange={(event, newValue) => {
+        value={value}
+        onChange={(event, newValue) => {
           setValue(newValue);
         }}
         renderInput={(params) => (
