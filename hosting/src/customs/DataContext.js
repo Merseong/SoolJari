@@ -30,7 +30,10 @@ function reducer(state, action) {
         }
       }
     case 'add':
-      return state;
+      return {
+        ...state,
+        cardData: state.cardData.concat(action.card),
+      };
     case 'del':
       return state;
     case 'setWatchingStared':

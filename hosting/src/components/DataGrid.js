@@ -3,10 +3,10 @@ import {
   Grid,
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
-import { useDataState, useDataDispatch } from '../customs/DataContext';
+import { useDataState } from '../customs/DataContext';
 //import firebase from 'firebase/app';
 import { useConstructor } from '../customs/hooks';
-import { getAllCards } from '../firebase';
+//import { getAllCards } from '../firebase';
 import MyCard from './MyCard';
 
 const useStyles = makeStyles(theme => ({
@@ -29,15 +29,12 @@ export default function DataGrid() {
       }
     })*/
     // for dev
-    getAllCards()
-    .then(cards => {
-      dataDispatch({ type: 'set', cards });
-    });
+    //dataDispatch({ type: 'set', cards: [] });
   });
 
   const dataState = useDataState();
   const cardData = dataState.watchingStared ? dataState.staredCardData : dataState.cardData;
-  const dataDispatch = useDataDispatch();
+  //const dataDispatch = useDataDispatch();
   const classes = useStyles();
 
   return (
