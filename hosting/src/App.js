@@ -40,10 +40,4 @@ function App() {
   );
 }
 
-/*
-
-        <TopAppBar/>
-        <DataGrid/>
-*/
-
 export default App;

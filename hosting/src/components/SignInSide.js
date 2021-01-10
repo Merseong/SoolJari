@@ -13,6 +13,7 @@ import {
 import { LocalBar } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import SimpleDialog from './SimpleDialog';
+import { useDataState, useDataDispatch } from '../customs/DataContext';
 
 function Copyright() {
   return (
@@ -62,6 +63,8 @@ export default function SignInSide() {
   const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState('');
+	const dataState = useDataState();
+	const dataDispatch = useDataDispatch();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -70,12 +73,24 @@ export default function SignInSide() {
   const handleClose = (value) => {
     setOpen(false);
     setSelectedValue(value);
+		dataDispatch({ type: 'set', card: value });
   };
 
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={12} sm={4} md={7} className={classes.image} />
+			{
+				dataState.selectedCard !== null ? 
+					<Grid item xs={12} sm={4} md={7}>
+						<p>{dataState.selectedCard}</p>
+						<Button onClick={() => {
+								dataDispatch({ type: 'erase' });
+							}}>
+						X
+						</Button>
+					</Grid> :
+					<Grid item xs={12} sm={4} md={7} className={classes.image} />
+			}
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -95,37 +110,15 @@ export default function SignInSide() {
               name="searchBar"
               autoFocus
             />
-						<Grid container
-							direction="row"
-							alignItems="center"
-							justify="space-evenly">
-							<Grid item>
-								<Button
-									fullWidth
-									variant="contained"
-									color="primary"
-									className={classes.submit}
-									onClick={handleClickOpen}
-								>
-									찾아보기!
-								</Button>
-							</Grid>
-							<Grid item>
-								<Typography component="h5" variant="h6">
-									혹은...
-								</Typography>
-							</Grid>
-							<Grid item>
-								<Button
-									fullWidth
-									variant="contained"
-									color="primary"
-									className={classes.submit}
-								>
-									새로운 카드 추가하기
-								</Button>
-							</Grid>
-						</Grid>
+						<Button
+							fullWidth
+							variant="contained"
+							color="primary"
+							className={classes.submit}
+							onClick={handleClickOpen}
+						>
+							찾아보기!
+						</Button>
       			<Typography variant="subtitle1">Selected: {selectedValue}</Typography>
             <Box mt={5}>
               <Copyright />
@@ -133,7 +126,7 @@ export default function SignInSide() {
           </div>
         </div>
       </Grid>
-			<SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
+			<SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} searchWord={'searching'} />
     </Grid>
   );
 }
