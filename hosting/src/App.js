@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useConstructor } from './customs/hooks';
 import { fire, getUserData } from './firebase';
 import firebase from 'firebase/app';
-import TopAppBar from "./components/TopAppBar";
+//import TopAppBar from "./components/TopAppBar";
 import UserContext from './customs/UserContext';
-import DataGrid from "./components/DataGrid";
+//import DataGrid from "./components/DataGrid";
 import DataContext from "./customs/DataContext";
+import SignInSide from "./components/SignInSide";
 
 function App() {
   const [ user, setUser ] = useState(undefined);
@@ -33,11 +34,16 @@ function App() {
       userData,
     }}>
       <DataContext>
-        <TopAppBar/>
-        <DataGrid/>
+				<SignInSide/>
       </DataContext>
     </UserContext.Provider>
   );
 }
+
+/*
+
+        <TopAppBar/>
+        <DataGrid/>
+*/
 
 export default App;
