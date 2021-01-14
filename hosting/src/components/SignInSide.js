@@ -62,9 +62,13 @@ const useStyles = makeStyles((theme) => ({
 export default function SignInSide() {
   const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState('');
+  const [selectedValue, setSelectedValue] = React.useState({});
 	const dataState = useDataState();
 	const dataDispatch = useDataDispatch();
+	const [searchVal, setSearchVal] = React.useState('');
+  const handleChange = (event) => {
+    setSearchVal(event.target.value);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -72,8 +76,14 @@ export default function SignInSide() {
 
   const handleClose = (value) => {
     setOpen(false);
-    setSelectedValue(value);
-		dataDispatch({ type: 'set', card: value });
+		if (value === 'addAccount') {
+			console.log('add new one');
+		} else if (value.title === undefined && selectedValue.title === undefined) {
+			console.log('canceled');
+		} else {
+			setSelectedValue(value);
+			dataDispatch({ type: 'set', card: value });
+		}
   };
 
   return (
@@ -82,8 +92,12 @@ export default function SignInSide() {
 			{
 				dataState.selectedCard !== null ? 
 					<Grid item xs={12} sm={4} md={7}>
-						<p>{dataState.selectedCard}</p>
+						<Typography component="h1" variant="h5">
+            {dataState.selectedCard.title}
+          	</Typography>
+						<p>{dataState.selectedCard.text}</p>
 						<Button onClick={() => {
+								setSelectedValue({});
 								dataDispatch({ type: 'erase' });
 							}}>
 						X
@@ -108,9 +122,17 @@ export default function SignInSide() {
               id="searchBar"
               label="찾을거?"
               name="searchBar"
+							onChange={handleChange}
+							onKeyUp={(e) => {
+								if (e.key === 'Enter') {
+									handleClickOpen();
+								}
+							}}
+							value={searchVal}
               autoFocus
             />
 						<Button
+							type='submit'
 							fullWidth
 							variant="contained"
 							color="primary"
@@ -119,14 +141,13 @@ export default function SignInSide() {
 						>
 							찾아보기!
 						</Button>
-      			<Typography variant="subtitle1">Selected: {selectedValue}</Typography>
             <Box mt={5}>
               <Copyright />
             </Box>
           </div>
         </div>
       </Grid>
-			<SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} searchWord={'searching'} />
+			<SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} searchWord={searchVal} />
     </Grid>
   );
 }

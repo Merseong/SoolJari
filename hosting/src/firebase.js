@@ -48,6 +48,21 @@ export const getAllCards = () => new Promise((res, rej) => {
     })
 })
 
+export const searchCards = (term) => new Promise((res, rej) => {
+	const lTerm = term.toLowerCase();
+	
+	checkDbInitialized()
+	.then(() => {
+		return db.collection('cards').where('titleLower', '>=', lTerm).where('titleLower', '<=', lTerm + '~').get();
+	})
+ 	.then(querySnapshot => {
+		res(querySnapshot.docs.map(doc => doc.data()));
+	})
+	.catch(err => {
+		rej(err);
+	})
+})
+
 export const getUserData = (uid) => db.collection('users').doc(uid).get()
 
 export const getStaredCards = (uid) => new Promise((res, rej) => {
