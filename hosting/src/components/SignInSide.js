@@ -8,9 +8,13 @@ import {
 	Paper,
 	Box,
 	Grid,
-	Typography
+	Typography,
+	IconButton,
 } from '@material-ui/core';
-import { LocalBar } from '@material-ui/icons';
+import {
+	LocalBar,
+	Clear,
+} from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import SimpleDialog from './SimpleDialog';
 import { useDataState, useDataDispatch } from '../customs/DataContext';
@@ -40,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
+	soolContent: {
+		padding: theme.spacing(1),
+	},
   paper: {
     margin: theme.spacing(8, 4),
     display: 'flex',
@@ -91,17 +98,24 @@ export default function SignInSide() {
       <CssBaseline />
 			{
 				dataState.selectedCard !== null ? 
-					<Grid item xs={12} sm={4} md={7}>
+					<Grid item xs={12} sm={4} md={7} className={classes.soolContent}>
 						<Typography component="h1" variant="h5">
             {dataState.selectedCard.title}
           	</Typography>
-						<p>{dataState.selectedCard.text}</p>
-						<Button onClick={() => {
+						{Object.keys(dataState.selectedCard).map((val, idx) => 
+							<TextField
+								id={val}
+								label={val}
+								value={dataState.selectedCard[val]}
+							/>
+						)}
+						<br/>
+						<IconButton onClick={() => {
 								setSelectedValue({});
 								dataDispatch({ type: 'erase' });
 							}}>
-						X
-						</Button>
+							<Clear/>
+						</IconButton>
 					</Grid> :
 					<Grid item xs={12} sm={4} md={7} className={classes.image} />
 			}
