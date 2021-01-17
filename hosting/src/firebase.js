@@ -49,11 +49,11 @@ export const getAllCards = () => new Promise((res, rej) => {
 })
 
 export const searchCards = (term) => new Promise((res, rej) => {
-	const lTerm = term.toLowerCase();
+	const lTerm = term.toLowerCase().trim().replace(" ", "");
 	
 	checkDbInitialized()
 	.then(() => {
-		return db.collection('cards').where('titleLower', '>=', lTerm).where('titleLower', '<=', lTerm + '~').get();
+		return db.collection('cards').orderBy('titleLower').startAt(lTerm).endAt(lTerm + '�').get(); // utf-8의 거의거의 마지막단어..
 	})
  	.then(querySnapshot => {
 		res(querySnapshot.docs.map(doc => doc.data()));
