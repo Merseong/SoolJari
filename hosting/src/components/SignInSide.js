@@ -10,10 +10,13 @@ import {
 	Grid,
 	Typography,
 	IconButton,
+	Snackbar,
 } from '@material-ui/core';
 import {
 	LocalBar,
 	Clear,
+	Close,
+	Save,
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import SimpleDialog from './SimpleDialog';
@@ -73,6 +76,8 @@ export default function SignInSide() {
 	const dataState = useDataState();
 	const dataDispatch = useDataDispatch();
 	const [searchVal, setSearchVal] = React.useState('');
+	const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+	
   const handleChange = (event) => {
     setSearchVal(event.target.value);
   };
@@ -92,6 +97,18 @@ export default function SignInSide() {
 			dataDispatch({ type: 'set', card: value });
 		}
   };
+	
+	const handleSnackbarClick = () => {
+		setSnackbarOpen(true);
+	};
+	
+	const handleSnackbarClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		
+		setSnackbarOpen(false);
+	};
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -107,6 +124,9 @@ export default function SignInSide() {
 								id={val}
 								label={val}
 								value={dataState.selectedCard[val]}
+								style={{
+									margin: '8px'
+								}}
 							/>
 						)}
 						<br/>
@@ -116,6 +136,29 @@ export default function SignInSide() {
 							}}>
 							<Clear/>
 						</IconButton>
+						<IconButton onClick={handleSnackbarClick}>
+							<Save/>
+						</IconButton>
+						<Snackbar
+							anchorOrigin={{
+								vertical: 'bottom',
+								horizontal: 'left',
+							}}
+							open={snackbarOpen}
+							autoHideDuration={6000}
+							onClose={handleSnackbarClose}
+							message="Saved\(TEST\)"
+							action={
+								<React.Fragment>
+									<Button color="secondary" size="small" onClick={handleSnackbarClose}>
+										UNDO
+									</Button>
+									<IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackbarClose}>
+										<Close fontSize="small" />
+									</IconButton>
+								</React.Fragment>
+							}
+						/>
 					</Grid> :
 					<Grid item xs={12} sm={4} md={7} className={classes.image} />
 			}

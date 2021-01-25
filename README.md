@@ -1,3 +1,8 @@
+# 대충 메모장
+
+할거: 카드간 링크 만들기  
+내용 수정하고 저장할수 있게 만들기
+
 # 술자리 - SoolJari
 
 For my perfect alcohol life
@@ -8,7 +13,8 @@ For my perfect alcohol life
 
 ### 초기 설치
 
-현재는 Codespace 절찬 이용중 (12월 31일까지)
+현재는 Codespace 절찬 이용중 (12월 31일까지)  
+이제 goormide 사용한다
 
 [Git](https://git-scm.com/download/win)
 
