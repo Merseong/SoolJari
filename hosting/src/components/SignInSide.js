@@ -21,6 +21,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import SimpleDialog from './SimpleDialog';
 import { useDataState, useDataDispatch } from '../customs/DataContext';
+import { getLinks } from '../firebase';
 
 function Copyright() {
   return (
@@ -49,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
   },
 	soolContent: {
 		padding: theme.spacing(1),
+		'& > *': {
+      margin: theme.spacing(1),
+    },
 	},
   paper: {
     margin: theme.spacing(8, 4),
@@ -71,12 +75,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSide() {
   const classes = useStyles();
-	const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState({});
 	const dataState = useDataState();
 	const dataDispatch = useDataDispatch();
-	const [searchVal, setSearchVal] = React.useState('');
-	const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+	const [open, setOpen] = React.useState(false); // 검색창 켜지는 값
+  const [selectedValue, setSelectedValue] = React.useState({}); // 검색창에서 선택된 값
+	const [searchVal, setSearchVal] = React.useState(''); // 검색창에 들어가는 검색 값
+	const [snackbarOpen, setSnackbarOpen] = React.useState(false); // 저장 / 삭제시 snackbar 켜지는 값
+	const [cardLinks, setCardLinks] = React.useState([]); // 선택된 카드의 링크
 	
   const handleChange = (event) => {
     setSearchVal(event.target.value);
@@ -109,6 +114,26 @@ export default function SignInSide() {
 		
 		setSnackbarOpen(false);
 	};
+	
+	React.useEffect(() => {
+		if (selectedValue.id) {
+			getLinks(selectedValue.id)
+			.then(links => {
+				setCardLinks(links.map(link => {
+					let title = link.targetTitles.pop();
+					if (title !== selectedValue.title) {
+						return title;
+					} else {
+						return link.targetTitles.pop();
+					}
+				}))
+			});
+		}
+		
+		return () => {
+			setCardLinks([]);
+		}
+	}, [selectedValue])
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -122,12 +147,20 @@ export default function SignInSide() {
 						{Object.keys(dataState.selectedCard).map((val, idx) => 
 							<TextField
 								id={val}
+								key={idx}
 								label={val}
 								value={dataState.selectedCard[val]}
 								style={{
 									margin: '8px'
 								}}
 							/>
+						)}
+						<br/>
+						<Typography component="h3" variant="h5">Links</Typography>
+						{cardLinks.map(val => 
+							<Button variant="outlined">
+								{val}
+							</Button>
 						)}
 						<br/>
 						<IconButton onClick={() => {

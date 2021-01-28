@@ -56,39 +56,29 @@ export const searchCards = (term) => new Promise((res, rej) => {
 		return db.collection('cards').orderBy('titleLower').startAt(lTerm).endAt(lTerm + '�').get(); // utf-8의 거의거의 마지막단어..
 	})
  	.then(querySnapshot => {
-		res(querySnapshot.docs.map(doc => doc.data()));
+		res(querySnapshot.docs.map(doc => {
+			const id = doc.id;
+			const data = doc.data();
+			return {...data, id};
+		}));
 	})
 	.catch(err => {
 		rej(err);
 	})
 })
 
-export const getUserData = (uid) => db.collection('users').doc(uid).get()
-
-export const getStaredCards = (uid) => new Promise((res, rej) => {
-    checkDbInitialized()
-    .then(() => {
-        return db.collection('users').doc(uid).collection('stared').get();
-    })
-    .then(querySnapshot => {
-        return querySnapshot.docs.map(doc => doc.data().ref);
-    })
-    .then(docRefs => {
-        return Promise.all(docRefs.map(docRef => db.collection('cards').doc(docRef.id).get()));
-    })
-    .then(documents => {
-        res(documents.map(doc => new CardData(doc.data())));
-    })
-    .catch(err => {
-        rej(err);
-    })
+export const getLinks = (docId) => new Promise((res, rej) => {
+	checkDbInitialized()
+	.then(() => {
+		return db.collection('cardLinks').where('targets', 'array-contains', docId).get();
+	})
+	.then(querySnapshot => {
+		res(querySnapshot.docs.map(doc => doc.data()));
+	})
+	.catch(err => {
+		rej(err);
+	})
 })
-
-export class CardData {
-    constructor(data) {
-        this.title = data.title; 
-    }
-}
 
 /// Firebase auth
 export const googleLoginAction = () => {
