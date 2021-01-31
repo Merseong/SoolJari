@@ -103,7 +103,8 @@ export default function SignInSide() {
 		}
   };
 	
-	const handleSnackbarClick = () => {
+	const handleSaveButtonClick = () => {
+		dataDispatch({ type: 'set', card: selectedValue });
 		setSnackbarOpen(true);
 	};
 	
@@ -113,6 +114,13 @@ export default function SignInSide() {
 		}
 		
 		setSnackbarOpen(false);
+	};
+	
+	const handleTextfieldChange = e => {
+		let newVal = Object.assign({}, selectedValue);
+		//console.log(e.target.id, e.target.value);
+		newVal[e.target.id] = e.target.value;
+		setSelectedValue(newVal);
 	};
 	
 	React.useEffect(() => {
@@ -142,16 +150,19 @@ export default function SignInSide() {
 				dataState.selectedCard !== null ? 
 					<Grid item xs={12} sm={4} md={7} className={classes.soolContent}>
 						<Typography component="h1" variant="h5">
-            {dataState.selectedCard.title}
+            {selectedValue.title}
           	</Typography>
-						{Object.keys(dataState.selectedCard).map((val, idx) => 
+						{Object.keys(selectedValue).sort().map((val, idx) => 
 							<TextField
 								id={val}
 								key={idx}
+								type={typeof(val).toString()}
 								label={val}
-								value={dataState.selectedCard[val]}
+								value={selectedValue[val]}
+								onChange={handleTextfieldChange}
 								style={{
-									margin: '8px'
+									margin: '8px',
+									width: '80%',
 								}}
 							/>
 						)}
@@ -169,7 +180,7 @@ export default function SignInSide() {
 							}}>
 							<Clear/>
 						</IconButton>
-						<IconButton onClick={handleSnackbarClick}>
+						<IconButton onClick={handleSaveButtonClick}>
 							<Save/>
 						</IconButton>
 						<Snackbar
@@ -180,7 +191,7 @@ export default function SignInSide() {
 							open={snackbarOpen}
 							autoHideDuration={6000}
 							onClose={handleSnackbarClose}
-							message="Saved\(TEST\)"
+							message="Saved on local"
 							action={
 								<React.Fragment>
 									<Button color="secondary" size="small" onClick={handleSnackbarClose}>
