@@ -80,8 +80,9 @@ export default function SignInSide() {
 	const [open, setOpen] = React.useState(false); // 검색창 켜지는 값
   const [selectedValue, setSelectedValue] = React.useState({}); // 검색창에서 선택된 값
 	const [searchVal, setSearchVal] = React.useState(''); // 검색창에 들어가는 검색 값
-	const [snackbarOpen, setSnackbarOpen] = React.useState(false); // 저장 / 삭제시 snackbar 켜지는 값
-	const [cardLinks, setCardLinks] = React.useState([]); // 선택된 카드의 링크
+	const [snackbarOpen, setSnackbarOpen] = React.useState(false); // 저장 / 삭제시 snackbar 켜는 값
+	const [cardLinks, setCardLinks] = React.useState([]); // 선택된 카드의 링크들
+	const [prevId, setPrevId] = React.useState(''); // 이전 선택되었던 선택값 -> 카드 링크 많이 안가져오게 만듬
 	
   const handleChange = (event) => {
     setSearchVal(event.target.value);
@@ -124,7 +125,8 @@ export default function SignInSide() {
 	};
 	
 	React.useEffect(() => {
-		if (selectedValue.id) {
+		if (selectedValue.id && selectedValue.id !== prevId) {
+			setPrevId(selectedValue.id);
 			getLinks(selectedValue.id)
 			.then(links => {
 				setCardLinks(links.map(link => {
@@ -139,9 +141,11 @@ export default function SignInSide() {
 		}
 		
 		return () => {
-			setCardLinks([]);
+			if (selectedValue.id !== prevId) {
+				setCardLinks([]);
+			}
 		}
-	}, [selectedValue])
+	}, [selectedValue, prevId])
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -150,7 +154,7 @@ export default function SignInSide() {
 				dataState.selectedCard !== null ? 
 					<Grid item xs={12} sm={4} md={7} className={classes.soolContent}>
 						<Typography component="h1" variant="h5">
-            {selectedValue.title}
+            {dataState.selectedCard.title}
           	</Typography>
 						{Object.keys(selectedValue).sort().map((val, idx) => 
 							<TextField
