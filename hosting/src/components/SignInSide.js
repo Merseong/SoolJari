@@ -11,12 +11,14 @@ import {
 	Typography,
 	IconButton,
 	Snackbar,
+	Divider,
 } from '@material-ui/core';
 import {
 	LocalBar,
 	Clear,
 	Close,
 	Save,
+	Add,
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import SimpleDialog from './SimpleDialog';
@@ -113,7 +115,6 @@ export default function SignInSide() {
 		if (reason === 'clickaway') {
 			return;
 		}
-		
 		setSnackbarOpen(false);
 	};
 	
@@ -160,6 +161,7 @@ export default function SignInSide() {
 						<Typography component="h1" variant="h5">
             {dataState.selectedCard.title}
           	</Typography>
+						<Divider variant="middle" />
 						{Object.keys(selectedValue).sort().map((val, idx) => 
 							<TextField
 								id={val}
@@ -174,7 +176,7 @@ export default function SignInSide() {
 								}}
 							/>
 						)}
-						<br/>
+						<Divider variant="middle" />
 						<Typography component="h3" variant="h5">Links</Typography>
 						{cardLinks.map(val => 
 							<Button
@@ -190,7 +192,10 @@ export default function SignInSide() {
 								{val.title}
 							</Button>
 						)}
-						<br/>
+						<IconButton>
+							<Add/>
+						</IconButton>
+						<Divider variant="middle" />
 						<IconButton onClick={() => {
 								setSelectedValue({});
 								dataDispatch({ type: 'erase' });
