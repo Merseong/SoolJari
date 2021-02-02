@@ -21,7 +21,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import SimpleDialog from './SimpleDialog';
 import { useDataState, useDataDispatch } from '../customs/DataContext';
-import { getLinks } from '../firebase';
+import { getLinks, getCardWithId } from '../firebase';
 
 function Copyright() {
   return (
@@ -131,10 +131,14 @@ export default function SignInSide() {
 			.then(links => {
 				setCardLinks(links.map(link => {
 					let title = link.targetTitles.pop();
-					if (title !== selectedValue.title) {
-						return title;
+					let id = link.targets.pop();
+					if (id !== selectedValue.id) {
+						return {id, title};
 					} else {
-						return link.targetTitles.pop();
+						return {
+							id: link.targets.pop(),
+							title: link.targetTitles.pop(),
+						};
 					}
 				}))
 			});
@@ -173,8 +177,17 @@ export default function SignInSide() {
 						<br/>
 						<Typography component="h3" variant="h5">Links</Typography>
 						{cardLinks.map(val => 
-							<Button variant="outlined">
-								{val}
+							<Button
+								variant="outlined"
+								onClick={() => {
+									getCardWithId(val.id)
+									.then(value => {
+										setSelectedValue(value);
+										dataDispatch({ type: 'set', card: value });
+									})
+								}}
+							>
+								{val.title}
 							</Button>
 						)}
 						<br/>

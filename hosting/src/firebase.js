@@ -35,17 +35,19 @@ const checkDbInitialized = () => new Promise((res, rej) => {
     }
 })
 
-export const getAllCards = () => new Promise((res, rej) => {
-    checkDbInitialized()
-    .then(() => {
-        return db.collection('cards').get()
-    })
-    .then(querySnapshot => {
-        res(querySnapshot.docs.map(doc => doc.data()));
-    })
-    .catch(err => {
-        rej(err);
-    })
+export const getCardWithId = (id) => new Promise((res, rej) => {
+	checkDbInitialized()
+	.then(() => {
+		return db.collection('cards').doc(id).get();
+	})
+	.then(doc => {
+		const id = doc.id;
+		const data = doc.data();
+		res({...data, id});
+	})
+	.catch(err => {
+		rej(err);
+	})
 })
 
 export const searchCards = (term) => new Promise((res, rej) => {
