@@ -24,6 +24,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import SimpleDialog from './SimpleDialog';
 import { useDataState, useDataDispatch } from '../customs/DataContext';
 import { getLinks, getCardWithId } from '../firebase';
+import AddLinkDialog from './AddLinkDialog';
 
 function Copyright() {
   return (
@@ -162,21 +163,6 @@ export default function SignInSide() {
             {dataState.selectedCard.title}
           	</Typography>
 						<Divider variant="middle" />
-						{Object.keys(selectedValue).sort().map((val, idx) => 
-							<TextField
-								id={val}
-								key={idx}
-								type={typeof(val).toString()}
-								label={val}
-								value={selectedValue[val]}
-								onChange={handleTextfieldChange}
-								style={{
-									margin: '8px',
-									width: '80%',
-								}}
-							/>
-						)}
-						<Divider variant="middle" />
 						<Typography component="h3" variant="h5">Links</Typography>
 						{cardLinks.map(val => 
 							<Button
@@ -192,9 +178,22 @@ export default function SignInSide() {
 								{val.title}
 							</Button>
 						)}
-						<IconButton>
-							<Add/>
-						</IconButton>
+						<AddLinkDialog/>
+						<Divider variant="middle" />
+						{Object.keys(selectedValue).sort().map((val, idx) => 
+							<TextField
+								id={val}
+								key={idx}
+								type={typeof(val).toString()}
+								label={val}
+								value={selectedValue[val]}
+								onChange={handleTextfieldChange}
+								style={{
+									margin: '8px',
+									width: '80%',
+								}}
+							/>
+						)}
 						<Divider variant="middle" />
 						<IconButton onClick={() => {
 								setSelectedValue({});
