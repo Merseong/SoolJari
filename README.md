@@ -46,8 +46,6 @@ $ git config user.name "Name"
 $ git config user.email "Email@e.e"
 $ git checkout -t origin/development
 ```
-또는...  
-ssajiAutoset.sh 실행 (git 세팅, firebase 세팅 자동화)
 
 ### 초기 개발용 세팅
 
@@ -90,4 +88,4 @@ $ npx firebase hosting:clone sooljari-alcdb:preview sooljari-alcdb:live
 9. 커스텀 가능한 초기화면
 10. 별자리 - 술자리, 어두운 밤하늘에 술한잔
 
-[노션에 쓰는 문서](https://www.notion.so/merseong/DB-b18d231429274d9c9415259771d74ba5)
+근데 이것도 한참 먼 이야기인듯
