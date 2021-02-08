@@ -18,7 +18,6 @@ import {
 	Clear,
 	Close,
 	Save,
-	Add,
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import SimpleDialog from './SimpleDialog';
@@ -178,7 +177,7 @@ export default function SignInSide() {
 								{val.title}
 							</Button>
 						)}
-						<AddLinkDialog/>
+						<AddLinkDialog links={cardLinks} setLinks={setCardLinks}/>
 						<Divider variant="middle" />
 						{Object.keys(selectedValue).sort().map((val, idx) => 
 							<TextField

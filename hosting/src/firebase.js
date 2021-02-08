@@ -55,7 +55,7 @@ export const searchCards = (term) => new Promise((res, rej) => {
 	
 	checkDbInitialized()
 	.then(() => {
-		return db.collection('cards').orderBy('titleLower').startAt(lTerm).endAt(lTerm + '�').get(); // utf-8의 거의거의 마지막단어..
+		return db.collection('cards').orderBy('titleLower').startAt(lTerm).endAt(lTerm + '�').limit(10).get(); // utf-8의 거의거의 마지막단어..
 	})
  	.then(querySnapshot => {
 		res(querySnapshot.docs.map(doc => {
