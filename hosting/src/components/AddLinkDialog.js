@@ -18,7 +18,7 @@ import {
 import { searchCards } from '../firebase';
 
 export default function AddLinkDialog(props) {
-	const {links, setLinks} = props;
+	//const {links, setLinks} = props;
 	const [open, setOpen] = React.useState(false);
 	const [searchStr, setSearchStr] = React.useState(''); // 찾을 제목
 	const [selectedId, setSelectedId] = React.useState(''); // 검색해서 찾은것중 선택한 id
