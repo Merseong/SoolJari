@@ -28,5 +28,4 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_GMAIL }}
         run: |
-          npm install firebase-tools
-          firebase deploy --token $FIREBASE_TOKEN --non-interactive
+          npx firebase deploy --token $FIREBASE_TOKEN --non-interactive
