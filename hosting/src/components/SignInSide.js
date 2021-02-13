@@ -18,11 +18,14 @@ import {
 	Clear,
 	Close,
 	Save,
+	VpnKey,
 } from '@material-ui/icons';
+import { green, yellow } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import SimpleDialog from './SimpleDialog';
 import { useDataState, useDataDispatch } from '../customs/DataContext';
-import { getLinks, getCardWithId } from '../firebase';
+import { useUserContext } from '../customs/UserContext';
+import { getLinks, getCardWithId, googleLoginAction, logoutAction } from '../firebase';
 import AddLinkDialog from './AddLinkDialog';
 
 function Copyright() {
@@ -79,6 +82,7 @@ export default function SignInSide() {
   const classes = useStyles();
 	const dataState = useDataState();
 	const dataDispatch = useDataDispatch();
+	const userState = useUserContext();
 	const [open, setOpen] = React.useState(false); // 검색창 켜지는 값
   const [selectedValue, setSelectedValue] = React.useState({}); // 검색창에서 선택된 값
 	const [searchVal, setSearchVal] = React.useState(''); // 검색창에 들어가는 검색 값
@@ -124,6 +128,16 @@ export default function SignInSide() {
 		newVal[e.target.id] = e.target.value;
 		setSelectedValue(newVal);
 	};
+	
+	const handleLoginButton = () => {
+		if (userState.user) {
+			// logout
+			logoutAction();
+		} else {
+			// login
+			googleLoginAction();
+		}
+	}
 	
 	React.useEffect(() => {
 		if (selectedValue.id && selectedValue.id !== prevId) {
@@ -263,6 +277,23 @@ export default function SignInSide() {
 							찾아보기!
 						</Button>
             <Box mt={5}>
+							<Grid container justify="center" alignItems="center">
+								<Grid item>
+									<IconButton onClick={handleLoginButton}>
+										<VpnKey style={ userState.userData ? userState.userData.verified ? { color: green[500] } : { color: yellow[500]} : {} }/>
+									</IconButton>
+								</Grid>
+								<Grid item>
+									<Typography variant="subtitle1">
+										{ userState.userData ? 
+											userState.userData.verified ?
+											'Verified :)' :
+											'Logined :)' :
+											''
+										}
+									</Typography>
+								</Grid>
+							</Grid>
               <Copyright />
             </Box>
           </div>

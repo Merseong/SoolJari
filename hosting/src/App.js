@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useConstructor } from './customs/hooks';
-import { fire } from './firebase';
+import { fire, getUserData } from './firebase';
 import firebase from 'firebase/app';
 //import TopAppBar from "./components/TopAppBar";
 import UserContext from './customs/UserContext';
@@ -17,11 +17,10 @@ function App() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         setUser(user);
-				/*
         getUserData(user.uid)
-        .then(doc => {
-          setUserData(doc.data());
-        });*/
+        .then(uData => {
+          setUserData(uData);
+        });
       } else {
         setUser(undefined);
         setUserData(undefined);

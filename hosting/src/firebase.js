@@ -82,28 +82,36 @@ export const getLinks = (docId) => new Promise((res, rej) => {
 	})
 })
 
+export const getUserData = (userId) => new Promise((res, rej) => {
+	const userRef = db.collection('users').doc(userId);
+	checkDbInitialized()
+	.then(() => {
+		return userRef.get();
+	})
+	.then(doc => {
+		if (doc.exists) {
+			res(doc.data());
+		} else {
+			//userRef.set({}); 이부분은 나중에...
+			res({});
+		}
+	})
+	.catch(e => {
+		rej(e);
+	})
+})
+
 /// Firebase auth
 export const googleLoginAction = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    let userRef;
 
     firebase.auth().signInWithPopup(provider)
     .then(res => {
         //console.log(res.user.uid);
-        // check firestore has userData
-        userRef = db.collection('users').doc(res.user.uid);
-        return userRef.get()
-    })
-    .then(doc => {
-        if (!doc.exists) {
-            return userRef.set({});
-        } else {
-            // if userData exists
-            return userRef.get();
-        }
+				console.log('logined');
     })
     .catch(err => {
-        console.error(err);
+        console.error('login failed', err);
     });
 }
 
