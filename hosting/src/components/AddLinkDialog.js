@@ -40,6 +40,15 @@ export default function AddLinkDialog(props) {
 	}
 	
 	const handleSearchedCardButton = (id, title) => {
+		if (id === dataState.selectedCard.id) {
+			alert('자기 자신에 링크를 만들 수 없습니다.')
+			return;
+		}
+		if (links.find(element => element.id === id)) {
+			alert('이미 존재하는 링크입니다.')
+			return;
+		}
+		
 		setSelectedId(id);
 		setSelectedTitle(title);
 	}
