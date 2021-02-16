@@ -82,6 +82,19 @@ export const getLinks = (docId) => new Promise((res, rej) => {
 	})
 })
 
+export const setLink = (newLink) => new Promise((res, rej) => {
+	checkDbInitialized()
+	.then(() => {
+		return db.collection('cardLinks').doc().set(newLink);
+	})
+	.then(() => {
+		res();
+	})
+	.catch(e => {
+		rej(e);
+	})
+})
+
 export const getUserData = (userId) => new Promise((res, rej) => {
 	const userRef = db.collection('users').doc(userId);
 	checkDbInitialized()

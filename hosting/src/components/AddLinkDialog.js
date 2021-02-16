@@ -15,10 +15,12 @@ import {
 import {
 	Add
 } from '@material-ui/icons';
-import { searchCards } from '../firebase';
+import { searchCards, setLink } from '../firebase';
+import { useDataState } from '../customs/DataContext';
 
 export default function AddLinkDialog(props) {
-	//const {links, setLinks} = props;
+	const dataState = useDataState();
+	const {links, setLocalLinks} = props;
 	const [open, setOpen] = React.useState(false);
 	const [searchStr, setSearchStr] = React.useState(''); // 찾을 제목
 	const [selectedId, setSelectedId] = React.useState(''); // 검색해서 찾은것중 선택한 id
@@ -56,7 +58,12 @@ export default function AddLinkDialog(props) {
 	
 	const handleSubmit = () => {
 		// link에 추가
+		setLocalLinks([...links, {id: selectedId, title: selectedTitle}]);
 		// firebase에도 저장
+		setLink({
+			targetTitles: [dataState.selectedCard.title, selectedTitle],
+			targets: [dataState.selectedCard.id, selectedId],
+		})
 		handleClose();
 	}
 	

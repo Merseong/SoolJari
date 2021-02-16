@@ -191,7 +191,7 @@ export default function SignInSide() {
 								{val.title}
 							</Button>
 						)}
-						<AddLinkDialog links={cardLinks} setLinks={setCardLinks}/>
+						<AddLinkDialog links={cardLinks} setLocalLinks={setCardLinks}/>
 						<Divider variant="middle" />
 						{Object.keys(selectedValue).sort().map((val, idx) => 
 							<TextField
