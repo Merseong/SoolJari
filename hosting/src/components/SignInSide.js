@@ -101,7 +101,11 @@ export default function SignInSide() {
   const handleClose = (value) => {
     setOpen(false);
 		if (value === 'addAccount') {
-			console.log('add new one');
+			if (userState.userData && userState.userData.verified) {
+				console.log('add new one');
+			} else {
+				console.warn('need verification on add new one');
+			}
 		} else if (value.title === undefined && selectedValue.title === undefined) {
 			console.log('canceled');
 		} else {
@@ -124,9 +128,12 @@ export default function SignInSide() {
 	
 	const handleTextfieldChange = e => {
 		let newVal = Object.assign({}, selectedValue);
+		const excludeChange = ['id', 'title']; // 여기에 수정 불가능한 필드를 넣으면됨
 		//console.log(e.target.id, e.target.value);
-		newVal[e.target.id] = e.target.value;
-		setSelectedValue(newVal);
+		if (!excludeChange.includes(e.target.id)) {
+			newVal[e.target.id] = e.target.value;
+			setSelectedValue(newVal);
+		}
 	};
 	
 	const handleLoginButton = () => {
@@ -191,7 +198,9 @@ export default function SignInSide() {
 								{val.title}
 							</Button>
 						)}
-						<AddLinkDialog links={cardLinks} setLocalLinks={setCardLinks}/>
+						{
+							userState.userData && userState.userData.verified ? <AddLinkDialog links={cardLinks} setLocalLinks={setCardLinks}/> : <></>
+						}
 						<Divider variant="middle" />
 						{Object.keys(selectedValue).sort().map((val, idx) => 
 							<TextField
@@ -214,9 +223,12 @@ export default function SignInSide() {
 							}}>
 							<Clear/>
 						</IconButton>
-						<IconButton onClick={handleSaveButtonClick}>
-							<Save/>
-						</IconButton>
+						{
+							userState.userData && userState.userData.verified ? 
+							<IconButton onClick={handleSaveButtonClick}>
+								<Save/>
+							</IconButton> : <></>
+						}
 						<Snackbar
 							anchorOrigin={{
 								vertical: 'bottom',
