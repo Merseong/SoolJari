@@ -83,12 +83,15 @@ export default function SignInSide() {
 	const dataState = useDataState();
 	const dataDispatch = useDataDispatch();
 	const userState = useUserContext();
+	
 	const [open, setOpen] = React.useState(false); // 검색창 켜지는 값
   const [selectedValue, setSelectedValue] = React.useState({}); // 검색창에서 선택된 값
 	const [searchVal, setSearchVal] = React.useState(''); // 검색창에 들어가는 검색 값
 	const [snackbarOpen, setSnackbarOpen] = React.useState(false); // 저장 / 삭제시 snackbar 켜는 값
 	const [cardLinks, setCardLinks] = React.useState([]); // 선택된 카드의 링크들
 	const [prevId, setPrevId] = React.useState(''); // 이전 선택되었던 선택값 -> 카드 링크 많이 안가져오게 만듬
+	
+	const excludeChange = ['id', 'title', 'titleLower']; // 여기에 수정 불가능한 필드를 넣으면됨
 	
   const handleChange = (event) => {
     setSearchVal(event.target.value);
@@ -128,7 +131,6 @@ export default function SignInSide() {
 	
 	const handleTextfieldChange = e => {
 		let newVal = Object.assign({}, selectedValue);
-		const excludeChange = ['id', 'title']; // 여기에 수정 불가능한 필드를 넣으면됨
 		//console.log(e.target.id, e.target.value);
 		if (!excludeChange.includes(e.target.id)) {
 			newVal[e.target.id] = e.target.value;
@@ -209,6 +211,7 @@ export default function SignInSide() {
 								type={typeof(val).toString()}
 								label={val}
 								value={selectedValue[val]}
+								disabled={excludeChange.includes(val)}
 								onChange={handleTextfieldChange}
 								style={{
 									margin: '8px',
