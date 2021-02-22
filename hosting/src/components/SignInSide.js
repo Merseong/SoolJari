@@ -25,7 +25,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import SimpleDialog from './SimpleDialog';
 import { useDataState, useDataDispatch } from '../customs/DataContext';
 import { useUserContext } from '../customs/UserContext';
-import { getLinks, getCardWithId, googleLoginAction, logoutAction } from '../firebase';
+import { getLinks, getCardWithId, googleLoginAction, logoutAction, setCard } from '../firebase';
 import AddLinkDialog from './AddLinkDialog';
 
 function Copyright() {
@@ -119,6 +119,7 @@ export default function SignInSide() {
 	
 	const handleSaveButtonClick = () => {
 		dataDispatch({ type: 'set', card: selectedValue });
+		setCard(selectedValue.id, selectedValue);
 		setSnackbarOpen(true);
 	};
 	
@@ -240,7 +241,7 @@ export default function SignInSide() {
 							open={snackbarOpen}
 							autoHideDuration={6000}
 							onClose={handleSnackbarClose}
-							message="Saved on local"
+							message="Saved."
 							action={
 								<React.Fragment>
 									<Button color="secondary" size="small" onClick={handleSnackbarClose}>

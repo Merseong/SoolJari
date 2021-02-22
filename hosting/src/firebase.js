@@ -69,6 +69,25 @@ export const searchCards = (term) => new Promise((res, rej) => {
 	})
 })
 
+export const setCard = (id, card) => new Promise((res, rej) => {
+	// 만일 id를 undefined로 놓으면 새로운 카드를 만들어서 넣어줌.
+	const newCard = Object.assign({}, card);
+	delete newCard.id; // 따로 붙였던 값을 제거해줌
+	
+	checkDbInitialized()
+	.then(() => {
+		console.log(id, newCard);
+		let docRef = id ? db.collection('cards').doc(id) : db.collection('cards').doc();
+		return docRef.set(newCard);
+	})
+	.then(() => {
+		res();
+	})
+	.catch(e => {
+		rej(e);
+	})
+})
+
 export const getLinks = (docId) => new Promise((res, rej) => {
 	checkDbInitialized()
 	.then(() => {
