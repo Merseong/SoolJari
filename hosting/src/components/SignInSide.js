@@ -106,8 +106,16 @@ export default function SignInSide() {
 		if (value === 'addAccount') {
 			if (userState.userData && userState.userData.verified) {
 				console.log('add new one');
+				const newTitle = prompt('새로운 카드의 제목을 입력해주세요.');
+				let newCard = {
+					title: newTitle,
+					titleLower: newTitle.toLowerCase().trim().replace(" ", ""),
+				};
+				setSelectedValue(newCard);
+				dataDispatch({ type: 'set', card: newCard});
 			} else {
 				console.warn('need verification on add new one');
+				alert('권한이 없습니다.');
 			}
 		} else if (value.title === undefined && selectedValue.title === undefined) {
 			console.log('canceled');

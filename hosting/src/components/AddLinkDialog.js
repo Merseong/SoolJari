@@ -25,7 +25,7 @@ export default function AddLinkDialog(props) {
 	const [searchStr, setSearchStr] = React.useState(''); // 찾을 제목
 	const [selectedId, setSelectedId] = React.useState(''); // 검색해서 찾은것중 선택한 id
 	const [selectedTitle, setSelectedTitle] = React.useState('선택된게 없습니다.'); // 검색해서 찾은것중 선택한 타이틀 or 에러메세지같은거?
-	const [buttonDisabled, setButtonDisabled] = React.useState(true); // id가 선택되어있을때만 추가 가능하게
+	const [buttonDisabled, setButtonDisabled] = React.useState(true); // id가 선택되어있을때만 링크를 추가 가능하게
 	const [searchedCards, setSearchedCards] = React.useState([]); // 검색된 카드들
 
 	const handleSearchFieldChange = (e) => {
@@ -40,6 +40,7 @@ export default function AddLinkDialog(props) {
 	}
 	
 	const handleSearchedCardButton = (id, title) => {
+		// 이미 링크 안에 있는지 확인해야됨 && 자기 자신인지도 확인
 		if (id === dataState.selectedCard.id) {
 			alert('자기 자신에 링크를 만들 수 없습니다.')
 			return;
@@ -77,7 +78,6 @@ export default function AddLinkDialog(props) {
 	}
 	
 	React.useEffect(() => {
-		// 이미 링크 안에 있는지 확인해야됨 && 자기 자신인지도 확인
 		if (selectedId !== '') {
 			setButtonDisabled(false);
 		}
