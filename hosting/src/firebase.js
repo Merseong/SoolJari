@@ -51,7 +51,7 @@ export const getCardWithId = (id) => new Promise((res, rej) => {
 })
 
 export const searchCards = (term) => new Promise((res, rej) => {
-	const lTerm = term.toLowerCase().trim().replace(" ", "");
+	const lTerm = term.toLowerCase().trim().replace(/ /g, "");
 	
 	checkDbInitialized()
 	.then(() => {

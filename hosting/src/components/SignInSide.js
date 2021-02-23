@@ -109,7 +109,7 @@ export default function SignInSide() {
 				const newTitle = prompt('새로운 카드의 제목을 입력해주세요.');
 				let newCard = {
 					title: newTitle,
-					titleLower: newTitle.toLowerCase().trim().replace(" ", ""),
+					titleLower: newTitle.toLowerCase().trim().replace(/ /g, ""),
 				};
 				setSelectedValue(newCard);
 				dataDispatch({ type: 'set', card: newCard});
