@@ -98,21 +98,28 @@ export default function SignInSide() {
   };
 
   const handleClickOpen = () => {
-    setOpen(true);
+		if (searchVal !== '') {
+    	setOpen(true);
+		}
   };
 
   const handleClose = (value) => {
     setOpen(false);
+		setSearchVal('');
 		if (value === 'addAccount') {
 			if (userState.userData && userState.userData.verified) {
 				console.log('add new one');
 				const newTitle = prompt('새로운 카드의 제목을 입력해주세요.');
-				let newCard = {
-					title: newTitle,
-					titleLower: newTitle.toLowerCase().trim().replace(/ /g, ""),
-				};
-				setSelectedValue(newCard);
-				dataDispatch({ type: 'set', card: newCard});
+				if (newTitle) {
+					let newCard = {
+						title: newTitle,
+						titleLower: newTitle.toLowerCase().trim().replace(/ /g, ""),
+					};
+					setSelectedValue(newCard);
+					dataDispatch({ type: 'set', card: newCard });
+					
+					setCardLinks([]); // Effect가 먹통이라 따로 넣어줌
+				}
 			} else {
 				console.warn('need verification on add new one');
 				alert('권한이 없습니다.');
@@ -197,6 +204,7 @@ export default function SignInSide() {
 						<Typography component="h3" variant="h5">Links</Typography>
 						{cardLinks.map(val => 
 							<Button
+								key={val.title}
 								variant="outlined"
 								onClick={() => {
 									getCardWithId(val.id)
@@ -210,7 +218,7 @@ export default function SignInSide() {
 							</Button>
 						)}
 						{
-							userState.userData && userState.userData.verified ? <AddLinkDialog links={cardLinks} setLocalLinks={setCardLinks}/> : <></>
+							userState.userData && userState.userData.verified && dataState.selectedCard.id ? <AddLinkDialog links={cardLinks} setLocalLinks={setCardLinks}/> : <></>
 						}
 						<Divider variant="middle" />
 						{Object.keys(selectedValue).sort().map((val, idx) => 
