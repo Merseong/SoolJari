@@ -12,6 +12,7 @@ import {
 	IconButton,
 	Snackbar,
 	Divider,
+	InputAdornment,
 } from '@material-ui/core';
 import {
 	LocalBar,
@@ -146,10 +147,11 @@ export default function SignInSide() {
 	};
 	
 	const handleTextfieldChange = e => {
+		const targetId = e.target.id.split('_')[0];
 		let newVal = Object.assign({}, selectedValue);
 		//console.log(e.target.id, e.target.value);
-		if (!excludeChange.includes(e.target.id)) {
-			newVal[e.target.id] = e.target.value;
+		if (!excludeChange.includes(targetId)) {
+			newVal[targetId] = e.target.value;
 			setSelectedValue(newVal);
 		}
 	};
@@ -161,6 +163,17 @@ export default function SignInSide() {
 		} else {
 			// login
 			googleLoginAction();
+		}
+	}
+	
+	const handleRemoveOptionButton = e => {
+		const targetId = e.target.id.split('_')[0];
+		let newVal = Object.assign({}, selectedValue);
+		//console.log(targetId);
+		if (!excludeChange.includes(targetId)) {
+			//console.log(newVal, e.target.id);
+			delete newVal[targetId];
+			setSelectedValue(newVal);
 		}
 	}
 	
@@ -223,7 +236,7 @@ export default function SignInSide() {
 						<Divider variant="middle" />
 						{Object.keys(selectedValue).sort().map((val, idx) => 
 							<TextField
-								id={val}
+								id={val + '_textField'}
 								key={idx}
 								type={typeof(val).toString()}
 								label={val}
@@ -233,6 +246,13 @@ export default function SignInSide() {
 								style={{
 									margin: '8px',
 									width: '80%',
+								}}
+								InputProps={excludeChange.includes(val) ? {} : {
+									endAdornment: <InputAdornment position="end">
+													<IconButton id={val + '_delBtn'} onClick={handleRemoveOptionButton}>
+														<Clear/>
+													</IconButton>
+												</InputAdornment>
 								}}
 							/>
 						)}
